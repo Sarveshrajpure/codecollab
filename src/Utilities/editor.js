@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const Editor = () => {
+  useEffect(()=>{})
   return (
     <div>
-      <div></div>
+      <textarea id="codeEditor ">hi</textarea>
     </div>
   );
 };

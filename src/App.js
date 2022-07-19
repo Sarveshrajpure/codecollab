@@ -9,7 +9,7 @@ import "./App.css";
 
 function App() {
   return (
-    <div className="bg-white dark:bg-tahiti">
+    <div className="bg-white dark:bg-dark-bg">
       <Routes>
         <Route exact path="" element={<Home />} />
         <Route exact path="/register" element={<Register />} />

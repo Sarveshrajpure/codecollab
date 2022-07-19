@@ -7,6 +7,10 @@ const Home = () => {
     <div>
       <div className=" ">
         <Nav isHomePage={true} />
+
+
+
+        
         <Footer />
       </div>
     </div>
