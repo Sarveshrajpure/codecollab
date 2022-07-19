@@ -1,6 +1,6 @@
 import React from "react";
 import EditorActions from "./components/editorActions";
-import Editor from "../Utilities/editor";
+import EditorComponent from "./components/editorComponent";
 import Nav from "../Home/components/Nav";
 import Toggle from "../Utilities/toggle";
 
@@ -12,9 +12,8 @@ const EditorPage = () => {
         <div className="actionsWrapper   md:w-48">
           <EditorActions />
         </div>
-        <div className="editorWrapper md:w-5/6 bg-midnight h-96">
-          Editor here
-          <Editor />
+        <div className="editorWrapper md:w-5/6">
+          <EditorComponent />
         </div>
       </div>
     </div>

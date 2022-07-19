@@ -1,0 +1,15 @@
+textarea { 
+resize: none;
+min-width: 100%;
+max-width: 100%; 
+min-height: 57vh;
+max-height:57vh;
+} 
+
+
+.CodeMirror{
+min-height: calc(100vh-20px);
+font-size: 22px;
+line-height: 1.6;
+padding-top: 10px;
+}

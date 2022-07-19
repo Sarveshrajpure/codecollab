@@ -21,7 +21,7 @@ const EditorActions = () => {
     { socketId: 15, username: "Rakesh K" },
   ]);
   return (
-    <div className="editorActionsContainer flex flex-col justify-between ">
+    <div className="editorActionsContainer flex flex-col justify-between dark:bg-dark-accent ">
       <div className="roomMemberContainer ">
         <h3 className="mx-2 my-2">Connected</h3>
         <div className="roomMemberBlock  h-32 overflow-x-scroll md:h-96 md:overflow-x-auto ">

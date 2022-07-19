@@ -8,7 +8,7 @@ module.exports = {
       white: "#FFFFFF",
       "dark-call-sec": "#FFFFFF",
       "dark-accent": "#24242B",
-      "dark-bg": "#121212",
+      "dark-bg": "#0D0D0D",
       "light-accent": "#F5F5F5",
       "light-bg": "#FFFFFF",
       "light-call-sec": "#5063F0",
