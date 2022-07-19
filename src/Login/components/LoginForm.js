@@ -35,7 +35,7 @@ const LoginForm = () => {
         if (response) {
           dispatch(login_user(response));
           setLoader(false);
-          navigate("/dashboard/dashboardhome");
+          navigate("/home");
         }
       }
     } catch (err) {

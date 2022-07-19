@@ -17,11 +17,6 @@ export const registerSchema = yup.object().shape({
     .min(3)
     .max(20, "Must be 20 characters or less")
     .required("Required"),
-  businessname: yup
-    .string()
-    .min(3)
-    .max(25, "Must be 25 characters or less")
-    .required("Required"),
   email: yup
     .string()
     .email("Enter a valid Email")

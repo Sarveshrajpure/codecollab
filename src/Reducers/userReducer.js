@@ -9,7 +9,6 @@ let userDefault = {
     firstname: null,
     lastname: null,
     email: null,
-    buinessname: null,
     phone: null,
   },
   auth: null,

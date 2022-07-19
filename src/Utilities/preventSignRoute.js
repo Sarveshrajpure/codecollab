@@ -1,11 +1,4 @@
-import {
-  Routes,
-  Route,
-  BrowserRouter,
-  Link,
-  Navigate,
-  Outlet,
-} from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { userIsAuth } from "../Login/loginAction";
 
