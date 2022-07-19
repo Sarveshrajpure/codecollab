@@ -29,7 +29,7 @@ const Nav = (isHomePage) => {
   };
   return (
     <div className="navWrapper">
-      <div className="navBlock px-6 md:px-12 lg:px-10 py-4 flex justify-between items-center ">
+      <div className="navBlock px-6 md:px-12 lg:px-4 py-1 flex justify-between items-center ">
         <div
           className=" flex  cursor-pointer "
           onClick={() => {
@@ -37,7 +37,7 @@ const Nav = (isHomePage) => {
           }}
         >
           <img
-            className=" w-2/5  md:w-2/3 lg:w-5/12 "
+            className=" w-2/6  md:w-2/3 lg:w-4/12 "
             src={mm_logo}
             alt="logo"
           />

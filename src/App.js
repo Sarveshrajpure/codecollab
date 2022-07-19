@@ -4,6 +4,7 @@ import Register from "./Register";
 import Login from "./Login";
 import Home from "./Home";
 import EditorPage from "./Editor";
+import Profile from "./Profile";
 import "./App.css";
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/editor" element={<EditorPage />} />
+        <Route exact path="/profile" element={<Profile />} />
       </Routes>
     </div>
   );
