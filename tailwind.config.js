@@ -13,6 +13,7 @@ module.exports = {
       "light-bg": "#FFFFFF",
       "light-call-sec": "#5063F0",
       "light-hover": "#c9c7c7",
+      "light-text-small": "#808080",
       "dark-hover": "#17171c",
       "call-primary": "#E91E63",
     },
