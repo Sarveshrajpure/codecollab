@@ -34,10 +34,10 @@ const EditorActions = () => {
       </div>
 
       <div className="flex justify-evenly md:flex-col md:h-56 md:justify-end ">
-        <button className="btn copyBtn bg-white rounded font-semibold text-md p-2 my-2 mx-2">
+        <button className="btn copyBtn  tracking-wide transition-background-color ease-in duration-200 p-2 m-2 bg-light-call-sec rounded text-center text-l font-semibold text-light-accent cursor-pointer hover:bg-light-hover hover:text-light-call-sec dark:hover:bg-dark-accent">
           Copy Room ID
         </button>
-        <button className="btn leaveBtn bg-sky-600 hover:bg-sky-700  rounded font-semibold text-md p-2 my-2 mx-2">
+        <button className="btn leaveBtn   tracking-wide transition-background-color ease-in duration-200 p-2 m-2 font-semibold text-light-call-sec dark:text-dark-call-sec dark:bg-dark-hover  bg-light-accent rounded cursor-pointer hover:bg-light-hover dark:hover:bg-light-hover dark:hover:text-dark-bg ">
           Leave Room
         </button>
       </div>

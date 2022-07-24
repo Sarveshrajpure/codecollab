@@ -11,7 +11,7 @@ const CodeEditor = ({ socketRef, roomId, onChange, language, code }) => {
 
   const handleEditorChange = (value) => {
     setValue(value);
-    onChange("code", value);
+    onChange(value);
   };
   console.log(theme);
 
@@ -29,7 +29,7 @@ const CodeEditor = ({ socketRef, roomId, onChange, language, code }) => {
   }, [theme]);
 
   return (
-    <div className="overlay rounded-md overflow-hidden w-full h-full shadow-4xl">
+    <div className="overlay rounded-md overflow-hidden h-full shadow-4xl">
       <Editor
         height="70vh"
         width={`100%`}

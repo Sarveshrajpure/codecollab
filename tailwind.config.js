@@ -16,6 +16,8 @@ module.exports = {
       "light-text-small": "#808080",
       "dark-hover": "#17171c",
       "call-primary": "#E91E63",
+      "output-error": "#FF9494",
+      "output-green": "#4BB543",
     },
     extend: {},
   },

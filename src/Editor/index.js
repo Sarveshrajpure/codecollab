@@ -6,7 +6,7 @@ import Toggle from "../Utilities/toggle";
 
 const EditorPage = () => {
   return (
-    <div className="editorPageWrapper h-screen ">
+    <div className="editorPageWrapper md:h-screen ">
       <Nav />
       <div className="editorPageBlock   flex flex-col-reverse  md:flex-row ">
         <div className="actionsWrapper   md:w-48">
