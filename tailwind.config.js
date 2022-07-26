@@ -5,6 +5,7 @@ module.exports = {
     colors: {
       transparent: "transparent",
       current: "currentColor",
+      red: "#DC143C",
       white: "#FFFFFF",
       "dark-call-sec": "#FFFFFF",
       "dark-accent": "#24242B",

@@ -35,7 +35,7 @@ const LoginForm = () => {
         if (response) {
           dispatch(login_user(response));
           setLoader(false);
-          navigate("/home");
+          navigate("/workspaces");
         }
       }
     } catch (err) {

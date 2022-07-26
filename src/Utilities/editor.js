@@ -1,29 +1,40 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { defineTheme } from "./defineTheme";
 import { ThemeContext } from "./themeContext";
+import ACTIONS from "./userSocketActions";
 
 import Editor from "@monaco-editor/react";
 
-const CodeEditor = ({ socketRef, roomId, onChange, language, code }) => {
+const CodeEditor = ({ language, socketRef, roomId, setEditorCode }) => {
   const { theme } = React.useContext(ThemeContext);
   const [themeObj, setTheme] = useState("cobalt");
-  const [value, setValue] = useState(code || "");
+  const [value, setValue] = useState("");
 
-  const handleEditorChange = (value) => {
-    setValue(value);
-    onChange(value);
+  useEffect(() => {
+    if (socketRef.current) {
+      // Listening to code change event
+      socketRef.current.on(ACTIONS.CODE_CHANGE, ({ code }) => {
+        if (code !== null) {
+          setValue(code);
+        }
+        console.log("receieving", code);
+      });
+    }
+  }, [socketRef.current]);
+
+  const handleEditorChange = (val) => {
+    setValue(val);
+    setEditorCode(val);
+    socketRef.current.emit(ACTIONS.CODE_CHANGE, { roomId, code: val });
   };
-  console.log(theme);
 
   useEffect(() => {
     let themeVar = "";
-    console.log(theme);
     if (theme === "dark") {
       themeVar = "brilliance-black";
     } else {
       themeVar = "xcode-default";
     }
-    console.log("theme...", themeVar);
 
     defineTheme(themeVar).then((_) => setTheme(themeVar));
   }, [theme]);
@@ -37,7 +48,9 @@ const CodeEditor = ({ socketRef, roomId, onChange, language, code }) => {
         value={value}
         theme={themeObj}
         defaultValue="// some comment"
-        onChange={handleEditorChange}
+        onChange={(val) => {
+          handleEditorChange(val);
+        }}
       />
     </div>
   );

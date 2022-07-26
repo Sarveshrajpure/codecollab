@@ -4,34 +4,29 @@ import { languageOptions } from "../../Utilities/languageOptions";
 import { CompileAndRun } from "../editorAction";
 import atob from "atob";
 import "./editorComponent.css";
+import ACTIONS from "../../Utilities/userSocketActions";
 
-const EditorComponent = () => {
+const EditorComponent = ({ socketRef, roomId }) => {
   const [lang, setLang] = useState({
     id: 63,
     label: "JavaScript (Node.js 12.14.0)",
     name: "JavaScript (Node.js 12.14.0)",
     value: "javascript",
   });
+  const [editorCode, setEditorCode] = useState();
 
-  const [socketId, setSocketId] = useState("ref123");
-  const [roomId, setRoomId] = useState("36536456");
-  const [code, setCode] = useState(`const hello=()=>{
-console.log("Hello world")
-  }
-  hello();
-  `);
   const [loader, setLoader] = useState(false);
   const [result, setResult] = useState("");
   const [outputColor, setOutputColor] = useState("light-hover");
 
   const handleCompile = async () => {
     setLoader(true);
+
     let response = await CompileAndRun({
       LangId: lang.id,
-      code: code,
+      code: editorCode,
       input: "",
     });
-    console.log(response);
     let statusId = response?.status?.id;
     if (statusId === 6) {
       setResult(atob(response?.compile_output));
@@ -48,7 +43,6 @@ console.log("Hello world")
     }
     setLoader(false);
   };
-  console.log(lang);
   return (
     <div className="shadow dark:shadow-dark-accent rounded ml-1">
       <div>
@@ -74,12 +68,11 @@ console.log("Hello world")
       <div className="editorFunctionContainer  md:flex">
         <div className="my-1 md:w-4/6">
           <CodeEditor
-            socketRef={socketId}
-            roomId={roomId}
             language={lang.value}
-            code={code}
-            onChange={(val) => {
-              setCode(val);
+            socketRef={socketRef ? socketRef : ""}
+            roomId={roomId ? roomId : ""}
+            setEditorCode={(val) => {
+              setEditorCode(val);
             }}
           />
         </div>
@@ -88,7 +81,7 @@ console.log("Hello world")
           <div className="h-96 ">
             <div className=" border-t-4 md:border-t-0 border-b-4 border-l-4 border-light-accent dark:border-dark-accent md:ml-2  h-3/5">
               <div
-                className={`text-l font-semibold p-2   text-${
+                className={`text-l font-semibold p-2  text-${
                   outputColor ? outputColor : "light-hover"
                 }`}
               >
