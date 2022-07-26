@@ -16,6 +16,7 @@ const CodeEditor = ({ language, socketRef, roomId, setEditorCode }) => {
       socketRef.current.on(ACTIONS.CODE_CHANGE, ({ code }) => {
         if (code !== null) {
           setValue(code);
+          setEditorCode(code);
         }
         console.log("receieving", code);
       });
