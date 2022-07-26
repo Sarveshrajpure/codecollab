@@ -6,7 +6,13 @@ import atob from "atob";
 import "./editorComponent.css";
 
 const EditorComponent = () => {
-  const [lang, setLang] = useState("63");
+  const [lang, setLang] = useState({
+    id: 63,
+    label: "JavaScript (Node.js 12.14.0)",
+    name: "JavaScript (Node.js 12.14.0)",
+    value: "javascript",
+  });
+
   const [socketId, setSocketId] = useState("ref123");
   const [roomId, setRoomId] = useState("36536456");
   const [code, setCode] = useState(`const hello=()=>{
@@ -20,7 +26,12 @@ console.log("Hello world")
 
   const handleCompile = async () => {
     setLoader(true);
-    let response = await CompileAndRun({ LangId: lang, code: code, input: "" });
+    let response = await CompileAndRun({
+      LangId: lang.id,
+      code: code,
+      input: "",
+    });
+    console.log(response);
     let statusId = response?.status?.id;
     if (statusId === 6) {
       setResult(atob(response?.compile_output));
@@ -37,20 +48,22 @@ console.log("Hello world")
     }
     setLoader(false);
   };
+  console.log(lang);
   return (
     <div className="shadow dark:shadow-dark-accent rounded ml-1">
       <div>
         <div className="langDropDown rounded-t p-1 w-22 bg-light-accent dark:bg-dark-accent">
           <select
             className="align-middle p-0 m-0 outline-none  border-2 border-light-accent  text-light-call-sec text-sm md:text-lg rounded-lg focus:light-call-sec focus:border-light-call-sec focus:ring-light-call-sec block   dark:bg-dark-bg dark:border-dark-accent dark:placeholder-dark-call-sec dark:text-dark-call-sec dark:focus:ring-dark-accent dark:focus:border-dark-accent w-64 "
-            value={lang}
             onChange={(e) => {
-              setLang(e.target.value);
+              let index = parseInt(e.target.value);
+              console.log(index);
+              setLang(languageOptions[index]);
             }}
           >
             {languageOptions.map((ele, i) => {
               return (
-                <option value={ele.id} key={i}>
+                <option value={i} key={i}>
                   {ele.label}
                 </option>
               );
@@ -63,7 +76,7 @@ console.log("Hello world")
           <CodeEditor
             socketRef={socketId}
             roomId={roomId}
-            language={lang}
+            language={lang.value}
             code={code}
             onChange={(val) => {
               setCode(val);
@@ -75,7 +88,7 @@ console.log("Hello world")
           <div className="h-96 ">
             <div className=" border-t-4 md:border-t-0 border-b-4 border-l-4 border-light-accent dark:border-dark-accent md:ml-2  h-3/5">
               <div
-                className={`text-l font-semibold p-2  text-${
+                className={`text-l font-semibold p-2   text-${
                   outputColor ? outputColor : "light-hover"
                 }`}
               >
