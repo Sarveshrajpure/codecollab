@@ -5,7 +5,6 @@ module.exports = {
     colors: {
       transparent: "transparent",
       current: "currentColor",
-      red: "#DC143C",
       white: "#FFFFFF",
       "dark-call-sec": "#FFFFFF",
       "dark-accent": "#24242B",
@@ -17,7 +16,7 @@ module.exports = {
       "light-text-small": "#808080",
       "dark-hover": "#17171c",
       "call-primary": "#E91E63",
-      "output-error": "#FF9494",
+      "output-error": "#DC143C",
       "output-green": "#4BB543",
     },
     extend: {},

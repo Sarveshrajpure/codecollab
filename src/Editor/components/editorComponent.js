@@ -8,22 +8,28 @@ import "./editorComponent.css";
 import ACTIONS from "../../Utilities/userSocketActions";
 import toast from "react-hot-toast";
 import { initSocket } from "../../Utilities/socket";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const EditorComponent = ({ roomId, setInitialCode, setClients, clients }) => {
   const socketRef = useRef(null);
   const codeRef = useRef(null);
+  const langRef = useRef(null);
+  const outputRef = useRef(null);
   const navigate = useNavigate();
   const username = useSelector((state) =>
     state.User.loginInfo.user.firstName
       ? state.User.loginInfo.user.firstName
       : ""
   );
-  const [lang, setLang] = useState({
-    id: 63,
-    label: "JavaScript (Node.js 12.14.0)",
-    name: "JavaScript (Node.js 12.14.0)",
-    value: "javascript",
-  });
+  const [lang, setLang] = useState(
+    langRef.current
+      ? langRef.current
+      : {
+          id: 63,
+          label: "JavaScript (Node.js 12.14.0)",
+          name: "JavaScript (Node.js 12.14.0)",
+          value: "javascript",
+        }
+  );
   const [editorCode, setEditorCode] = useState();
 
   const [loader, setLoader] = useState(false);
@@ -57,8 +63,19 @@ const EditorComponent = ({ roomId, setInitialCode, setClients, clients }) => {
             toast.success(`${userName} joined the room.`);
           }
           setClients(clients);
+          //syncing code
           socketRef.current.emit(ACTIONS.SYNC_CODE, {
             code: codeRef.current,
+            socketId,
+          });
+          //syncing programming language
+          socketRef.current.emit(ACTIONS.SYNC_LANGUAGE, {
+            lang: langRef.current,
+            socketId,
+          });
+          //syncing output
+          socketRef.current.emit(ACTIONS.SYNC_OUTPUT, {
+            output: outputRef.current,
             socketId,
           });
         }
@@ -81,6 +98,34 @@ const EditorComponent = ({ roomId, setInitialCode, setClients, clients }) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (socketRef.current) {
+      // Listening to language change event
+      socketRef.current.on(ACTIONS.LANGUAGE_CHANGE, ({ lang }) => {
+        if (lang !== null) {
+          langRef.current = lang;
+          setLang(languageOptions[langRef.current]);
+
+          document.querySelector("#language_Select").value = lang;
+
+          console.log(document.querySelector("#language_Select").value);
+        }
+      });
+    }
+  }, [socketRef.current]);
+
+  useEffect(() => {
+    if (socketRef.current) {
+      // Listening to output change event
+      socketRef.current.on(ACTIONS.OUTPUT_CHANGE, ({ output }) => {
+        if (output !== null) {
+          outputRef.current = output;
+          setResult(output);
+        }
+      });
+    }
+  }, [socketRef.current]);
+
   const handleCompile = async () => {
     setLoader(true);
 
@@ -89,19 +134,49 @@ const EditorComponent = ({ roomId, setInitialCode, setClients, clients }) => {
       code: editorCode,
       input: "",
     });
-    let statusId = response?.status?.id;
-    if (statusId === 6) {
-      setResult(atob(response?.compile_output));
-      setOutputColor("output-error");
-    } else if (statusId === 3) {
-      setResult(atob(response.stdout) !== null ? atob(response.stdout) : null);
-      setOutputColor("output-green");
-    } else if (statusId === 5) {
-      setResult(`Time Limit Exceeded`);
-      setOutputColor("output-error");
-    } else {
-      setResult(atob(response?.stderr));
-      setOutputColor("output-error");
+
+    if (response) {
+      console.log(response);
+      let statusId = response?.status?.id;
+      if (statusId === 6) {
+        setResult(atob(response?.compile_output));
+        outputRef.current = atob(response?.compile_output);
+        socketRef.current.emit(ACTIONS.OUTPUT_CHANGE, {
+          roomId,
+          output: outputRef.current,
+        });
+        setOutputColor("output-error");
+      } else if (statusId === 3) {
+        console.log(statusId);
+        setResult(
+          atob(response.stdout) !== null ? atob(response.stdout) : null
+        );
+        outputRef.current =
+          atob(response.stdout) !== null ? atob(response.stdout) : null;
+
+        socketRef.current.emit(ACTIONS.OUTPUT_CHANGE, {
+          roomId,
+          output: outputRef.current,
+        });
+
+        setOutputColor("output-green");
+      } else if (statusId === 5) {
+        setResult(`Time Limit Exceeded`);
+        outputRef.current = `Time Limit Exceeded`;
+        socketRef.current.emit(ACTIONS.OUTPUT_CHANGE, {
+          roomId,
+          output: outputRef.current,
+        });
+        setOutputColor("output-error");
+      } else {
+        setResult(atob(response?.stderr));
+        outputRef.current = atob(response?.stderr);
+        socketRef.current.emit(ACTIONS.OUTPUT_CHANGE, {
+          roomId,
+          output: outputRef.current,
+        });
+        setOutputColor("output-error");
+      }
     }
     setLoader(false);
   };
@@ -111,10 +186,16 @@ const EditorComponent = ({ roomId, setInitialCode, setClients, clients }) => {
       <div>
         <div className="langDropDown rounded-t p-1 w-22 bg-light-accent dark:bg-dark-accent">
           <select
+            id="language_Select"
             className="align-middle p-0 m-0 outline-none  border-2 border-light-accent  text-light-call-sec text-sm md:text-lg rounded-lg focus:light-call-sec focus:border-light-call-sec focus:ring-light-call-sec block   dark:bg-dark-bg dark:border-dark-accent dark:placeholder-dark-call-sec dark:text-dark-call-sec dark:focus:ring-dark-accent dark:focus:border-dark-accent w-64 "
             onChange={(e) => {
               let index = parseInt(e.target.value);
               setLang(languageOptions[index]);
+              langRef.current = index;
+              socketRef.current.emit(ACTIONS.LANGUAGE_CHANGE, {
+                roomId,
+                lang: index,
+              });
             }}
           >
             {languageOptions.map((ele, i) => {
