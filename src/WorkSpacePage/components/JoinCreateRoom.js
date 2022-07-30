@@ -79,7 +79,7 @@ const JoinCreateRoom = () => {
               />
               {
                 <div
-                  className="invalid-feedback  text-red text-xs px-2 pt-1"
+                  className="invalid-feedback  text-output-error text-xs px-2 pt-1"
                   style={errors.roomId ? { display: "block" } : {}}
                 >
                   {errors.roomId?.message}
@@ -100,7 +100,7 @@ const JoinCreateRoom = () => {
             </div>
             {
               <div
-                className="invalid-feedback  text-red text-xs px-2 pt-1"
+                className="invalid-feedback  text-output-error text-xs px-2 pt-1"
                 style={errors.userName ? { display: "block" } : {}}
               >
                 {errors.userName?.message}

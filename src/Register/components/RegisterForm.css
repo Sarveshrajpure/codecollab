@@ -13,7 +13,7 @@
   margin: auto;
 }
 
-.registerBtn {
+/* .registerBtn {
   background-color: #98c1d9;
   width: 80%;
   text-align: center;
@@ -21,7 +21,7 @@
   padding: 0.3rem 1rem 0.5rem 1rem;
   cursor: pointer;
   transition: all 200ms ease-in;
-}
+} */
 
 .registerBtn:hover {
   background-color: #004466;
@@ -34,7 +34,7 @@
 }
 
 .goToLoginLink {
-  color: #004466;
+  
   font-weight: 600;
   cursor: pointer;
 }

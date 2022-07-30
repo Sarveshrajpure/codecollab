@@ -1,8 +1,22 @@
-import React, { useState } from "react";
-import mm_logo from "../../assests/cc_logo.png";
+import React from "react";
 import Member from "../../Utilities/member";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
-const EditorActions = ({ clients }) => {
+const EditorActions = ({ clients, roomId }) => {
+  const navigate = useNavigate();
+  const copyRoomId = async () => {
+    try {
+      await navigator.clipboard.writeText(roomId);
+      toast.success("Room ID has been copied to your clipboard!");
+    } catch (e) {
+      toast.error("Could not cpoy room ID");
+    }
+  };
+
+  const leaveRoom = () => {
+    navigate("/workspaces");
+  };
   return (
     <div className="editorActionsContainer flex flex-col justify-between dark:bg-dark-accent ">
       <div className="roomMemberContainer ">
@@ -19,10 +33,20 @@ const EditorActions = ({ clients }) => {
       </div>
 
       <div className="flex justify-evenly md:flex-col md:h-56 md:justify-end ">
-        <button className="btn copyBtn  tracking-wide transition-background-color ease-in duration-200 p-2 m-2 bg-light-call-sec rounded text-center text-l font-semibold text-light-accent cursor-pointer hover:bg-light-hover hover:text-light-call-sec dark:hover:bg-dark-accent">
+        <button
+          onClick={() => {
+            copyRoomId();
+          }}
+          className="btn copyBtn  tracking-wide transition-background-color ease-in duration-200 p-2 m-2 bg-light-call-sec rounded text-center text-l font-semibold text-light-accent cursor-pointer hover:bg-light-hover hover:text-light-call-sec dark:hover:bg-dark-accent"
+        >
           Copy Room ID
         </button>
-        <button className="btn leaveBtn   tracking-wide transition-background-color ease-in duration-200 p-2 m-2 font-semibold text-light-call-sec dark:text-dark-call-sec dark:bg-dark-hover  bg-light-accent rounded cursor-pointer hover:bg-light-hover dark:hover:bg-light-hover dark:hover:text-dark-bg ">
+        <button
+          onClick={() => {
+            leaveRoom();
+          }}
+          className="btn leaveBtn   tracking-wide transition-background-color ease-in duration-200 p-2 m-2 font-semibold text-light-call-sec dark:text-dark-call-sec dark:bg-dark-hover  bg-light-accent rounded cursor-pointer hover:bg-light-hover dark:hover:bg-light-hover dark:hover:text-dark-bg "
+        >
           Leave Room
         </button>
       </div>

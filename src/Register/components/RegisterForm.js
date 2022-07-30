@@ -57,26 +57,26 @@ const RegisterForm = () => {
             className="registerForm  rounded px-14 pt-5 pb-8 mb-4"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <div className="pb-6 text-center text-2xl font-extrabold">
+            <div className="pb-6 text-center text-2xl font-extrabold text-dark-accent dark:text-light-call-sec ">
               <div>Hi, there!</div>
               <div>
-                Let's create{" "}
-                <span className="text-orange-600">your digital menu.</span>
+                Let's code to{" "}
+                <span className=" text-light-call-sec dark:text-light-accent">
+                  collaborate.
+                </span>
               </div>
             </div>
-            <div className=" lg:flex lg:space-x-4">
-              <div className="mb-4 ">
+            <div className=" lg:flex lg:space-x-12">
+              <div className="mb-4">
                 <label
-                  className="block text-gray-700 text-sm font-bold mb-2"
+                  className="block dark-accent dark:text-light-accent text-sm font-bold mb-2"
                   htmlFor="firstname"
                 >
                   First Name
                 </label>
                 <input
-                  className=" appearance-none border 
-          rounded w-full py-2 px-3 text-gray-700 
-          leading-tight focus:outline-none
-           focus:shadow-outline"
+                  className=" appearance-none transition-border-color duration-200  border 
+                  rounded border-light-accent focus:border-light-call-sec  dark:border-dark-accent dark:bg-dark-bg dark:focus:border-white w-full py-2 px-3  text-light-text-small text-sm font-semibold focus:outline-none"
                   id="firstname"
                   name="firstname"
                   type="text"
@@ -85,7 +85,7 @@ const RegisterForm = () => {
                 />{" "}
                 {
                   <div
-                    className="invalid-feedback  text-red-500 text-xs px-2 pt-1"
+                    className="invalid-feedback text-output-error text-xs px-2 pt-1"
                     style={errors.firstname ? { display: "block" } : {}}
                   >
                     {errors.firstname?.message}
@@ -94,16 +94,14 @@ const RegisterForm = () => {
               </div>
               <div className="mb-4">
                 <label
-                  className="block text-gray-700 text-sm font-bold mb-2"
+                  className="block dark-accent dark:text-light-accent text-sm font-bold mb-2"
                   htmlFor="lastname"
                 >
                   Last Name
                 </label>
                 <input
-                  className="appearance-none border 
-          rounded w-full py-2 px-3 text-gray-700 
-          leading-tight focus:outline-none
-           focus:shadow-outline"
+                  className=" appearance-none transition-border-color duration-200  border 
+                  rounded border-light-accent focus:border-light-call-sec  dark:border-dark-accent dark:bg-dark-bg dark:focus:border-white w-full py-2 px-3  text-light-text-small text-sm font-semibold focus:outline-none"
                   id="lastname"
                   name="lastname"
                   type="text"
@@ -112,7 +110,7 @@ const RegisterForm = () => {
                 />{" "}
                 {
                   <div
-                    className="invalid-feedback  text-red-500 text-xs px-2 pt-1"
+                    className="invalid-feedback text-output-error text-xs px-2 pt-1"
                     style={errors.lastname ? { display: "block" } : {}}
                   >
                     {errors.lastname?.message}
@@ -120,19 +118,17 @@ const RegisterForm = () => {
                 }
               </div>
             </div>
-           
+
             <div className="mb-4 ">
               <label
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block dark-accent dark:text-light-accent text-sm font-bold mb-2"
                 htmlFor="phone"
               >
                 Contact number
               </label>
               <input
-                className="appearance-none border 
-          rounded w-full py-2 px-3 text-gray-700 
-          leading-tight focus:outline-none
-           focus:shadow-outline"
+                className=" appearance-none transition-border-color duration-200  border 
+                rounded border-light-accent focus:border-light-call-sec  dark:border-dark-accent dark:bg-dark-bg dark:focus:border-white w-full py-2 px-3 text-light-text-small text-sm font-semibold focus:outline-none"
                 id="phone"
                 name="phone"
                 type="text"
@@ -141,7 +137,7 @@ const RegisterForm = () => {
               />{" "}
               {
                 <div
-                  className="invalid-feedback  text-red-500 text-xs px-2 pt-1"
+                  className="invalid-feedback  text-output-error text-xs px-2 pt-1"
                   style={errors.phone ? { display: "block" } : {}}
                 >
                   {errors.phone?.message}
@@ -151,16 +147,14 @@ const RegisterForm = () => {
 
             <div className="mb-4">
               <label
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block dark-accent dark:text-light-accent text-sm font-bold mb-2"
                 htmlFor="email"
               >
                 Email
               </label>
               <input
-                className="appearance-none border 
-          rounded w-full py-2 px-3 text-gray-700 
-          leading-tight focus:outline-none
-           focus:shadow-outline"
+                className=" appearance-none transition-border-color duration-200  border 
+                rounded border-light-accent focus:border-light-call-sec  dark:border-dark-accent dark:bg-dark-bg dark:focus:border-white w-full py-2 px-3 text-light-text-small text-sm font-semibold focus:outline-none"
                 id="email"
                 name="email"
                 type="text"
@@ -169,7 +163,7 @@ const RegisterForm = () => {
               />{" "}
               {
                 <div
-                  className="invalid-feedback  text-red-500 text-xs px-2 pt-1"
+                  className="invalid-feedback  text-output-error text-xs px-2 pt-1"
                   style={errors.email ? { display: "block" } : {}}
                 >
                   {errors.email?.message}
@@ -178,16 +172,14 @@ const RegisterForm = () => {
             </div>
             <div className="mb-6">
               <label
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block dark-accent dark:text-light-accent text-sm font-bold mb-2"
                 htmlFor="password"
               >
                 Password
               </label>
               <input
-                className="appearance-none border 
-          rounded w-full py-2 px-3 text-gray-700 
-          leading-tight focus:outline-none
-           focus:shadow-outline"
+                className=" appearance-none transition-border-color duration-200  border 
+                rounded border-light-accent focus:border-light-call-sec  dark:border-dark-accent dark:bg-dark-bg dark:focus:border-white w-full py-2 px-3 text-light-text-small text-sm font-semibold focus:outline-none"
                 id="password"
                 name="password"
                 type="password"
@@ -196,7 +188,7 @@ const RegisterForm = () => {
               />{" "}
               {
                 <div
-                  className="invalid-feedback  text-red-500 text-xs px-2 pt-1"
+                  className="invalid-feedback  text-output-error text-xs px-2 pt-1"
                   style={errors.password ? { display: "block" } : {}}
                 >
                   {errors.password?.message}
@@ -205,16 +197,14 @@ const RegisterForm = () => {
             </div>
             <div className="mb-6">
               <label
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block dark-accent dark:text-light-accent text-sm font-bold mb-2"
                 htmlFor="confirmpassword"
               >
                 Confirm Password
               </label>
               <input
-                className="appearance-none border 
-          rounded w-full py-2 px-3 text-gray-700 
-          leading-tight focus:outline-none
-           focus:shadow-outline"
+                className=" appearance-none transition-border-color duration-200  border 
+                rounded border-light-accent focus:border-light-call-sec  dark:border-dark-accent dark:bg-dark-bg dark:focus:border-white w-full py-2 px-3 text-light-text-small text-sm font-semibold focus:outline-none"
                 id="confirmpassword"
                 name="confirmpassword"
                 type="password"
@@ -223,7 +213,7 @@ const RegisterForm = () => {
               />
               {
                 <div
-                  className="invalid-feedback  text-red-500 text-xs px-2 pt-1"
+                  className="invalid-feedback  text-output-error text-xs px-2 pt-1"
                   style={errors.confirmpassword ? { display: "block" } : {}}
                 >
                   {errors.confirmpassword?.message}
@@ -245,18 +235,17 @@ const RegisterForm = () => {
               <div className="flex justify-center">
                 <button
                   type="submit"
-                  className="registerBtn  shadow-md mt-2  
-         text-lg   md:text-xl md:mt-4  lg:text-xl"
+                  className="registerBtn  tracking-wide transition-background-color ease-in duration-200 p-2 pr-20 pl-20 bg-light-call-sec rounded text-center text-lg font-semibold text-light-accent cursor-pointer hover:bg-light-hover hover:text-light-call-sec dark:hover:bg-dark-accent"
                 >
                   Register
                 </button>
               </div>
             )}
 
-            <div className="goToLoginLinkBlock text-center   mt-4 text-xs lg:text-sm md:text-sm ">
+            <div className="goToLoginLinkBlock text-center dark-accent dark:text-light-accent   mt-4 text-xs lg:text-sm md:text-sm ">
               <div>Already registered? </div>
               <div
-                className="goToLoginLink px-1"
+                className="goToLoginLink px-1 text-light-call-sec"
                 onClick={() => {
                   navigate("/login");
                 }}

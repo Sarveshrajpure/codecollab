@@ -1,12 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import CodeEditor from "../../Utilities/editor";
 import { languageOptions } from "../../Utilities/languageOptions";
 import { CompileAndRun } from "../editorAction";
+import { useSelector } from "react-redux";
 import atob from "atob";
 import "./editorComponent.css";
 import ACTIONS from "../../Utilities/userSocketActions";
-
-const EditorComponent = ({ socketRef, roomId }) => {
+import toast from "react-hot-toast";
+import { initSocket } from "../../Utilities/socket";
+import { useNavigate, useParams } from "react-router-dom";
+const EditorComponent = ({ roomId, setInitialCode, setClients, clients }) => {
+  const socketRef = useRef(null);
+  const codeRef = useRef(null);
+  const navigate = useNavigate();
+  const username = useSelector((state) =>
+    state.User.loginInfo.user.firstName
+      ? state.User.loginInfo.user.firstName
+      : ""
+  );
   const [lang, setLang] = useState({
     id: 63,
     label: "JavaScript (Node.js 12.14.0)",
@@ -18,6 +29,57 @@ const EditorComponent = ({ socketRef, roomId }) => {
   const [loader, setLoader] = useState(false);
   const [result, setResult] = useState("");
   const [outputColor, setOutputColor] = useState("light-hover");
+
+  useEffect(() => {
+    console.log("in effect");
+
+    const init = async () => {
+      socketRef.current = await initSocket();
+      socketRef.current.on("connect_error", (err) => handleErrors(err));
+      socketRef.current.on("connect_failed", (err) => handleErrors(err));
+
+      function handleErrors(e) {
+        console.log("socket error", e);
+        toast.error("Socket connection failed, try again later.");
+        navigate("/workspaces");
+      }
+
+      socketRef.current.emit(ACTIONS.JOIN, {
+        roomId,
+        userName: username,
+      });
+
+      // Listening for joined event
+      socketRef.current.on(
+        ACTIONS.JOINED,
+        ({ clients, userName, socketId }) => {
+          if (userName !== username) {
+            toast.success(`${userName} joined the room.`);
+          }
+          setClients(clients);
+          socketRef.current.emit(ACTIONS.SYNC_CODE, {
+            code: codeRef.current,
+            socketId,
+          });
+        }
+      );
+
+      //Listening for disconnected event
+
+      socketRef.current.on(ACTIONS.DISCONNECTED, ({ socketId, userName }) => {
+        toast(`${userName} left the room.`, { icon: "🏃" });
+        setClients((prev) => {
+          return prev.filter((client) => client.socketId !== socketId);
+        });
+      });
+    };
+    init();
+    return () => {
+      socketRef.current.disconnect();
+      socketRef.current.off(ACTIONS.JOINED);
+      socketRef.current.off(ACTIONS.DISCONNECTED);
+    };
+  }, []);
 
   const handleCompile = async () => {
     setLoader(true);
@@ -43,6 +105,7 @@ const EditorComponent = ({ socketRef, roomId }) => {
     }
     setLoader(false);
   };
+
   return (
     <div className="shadow dark:shadow-dark-accent rounded ml-1">
       <div>
@@ -51,7 +114,6 @@ const EditorComponent = ({ socketRef, roomId }) => {
             className="align-middle p-0 m-0 outline-none  border-2 border-light-accent  text-light-call-sec text-sm md:text-lg rounded-lg focus:light-call-sec focus:border-light-call-sec focus:ring-light-call-sec block   dark:bg-dark-bg dark:border-dark-accent dark:placeholder-dark-call-sec dark:text-dark-call-sec dark:focus:ring-dark-accent dark:focus:border-dark-accent w-64 "
             onChange={(e) => {
               let index = parseInt(e.target.value);
-              console.log(index);
               setLang(languageOptions[index]);
             }}
           >
@@ -73,6 +135,7 @@ const EditorComponent = ({ socketRef, roomId }) => {
             roomId={roomId ? roomId : ""}
             setEditorCode={(val) => {
               setEditorCode(val);
+              codeRef.current = val;
             }}
           />
         </div>

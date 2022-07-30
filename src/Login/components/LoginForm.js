@@ -57,20 +57,23 @@ const LoginForm = () => {
             onSubmit={handleSubmit(onSubmit)}
           >
             <div className="LoginTitle text-center  font-extrabold pb-6">
-              <span className="text-orange-600">Dashboard</span> Login
+              <span className="text-light-call-sec dark:text-light-accent">
+                Workspace
+              </span>{" "}
+              <span className="text-dark-accent dark:text-light-call-sec">
+                Login
+              </span>
             </div>
             <div className="mb-6">
               <label
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block dark-accent dark:text-light-accent text-sm font-bold mb-2"
                 htmlFor="Email"
               >
                 Email
               </label>
               <input
-                className=" appearance-none border 
-            rounded w-full py-2 px-3 text-gray-700 
-            leading-tight focus:outline-none
-             focus:shadow-outline"
+                className=" appearance-none transition-border-color duration-200  border 
+                rounded border-light-accent focus:border-light-call-sec  dark:border-dark-accent dark:bg-dark-bg dark:focus:border-white w-full py-2 px-3 text-light-text-small text-sm font-semibold focus:outline-none"
                 id="email"
                 type="text"
                 placeholder="Email"
@@ -78,7 +81,7 @@ const LoginForm = () => {
               />
               {
                 <div
-                  className="invalid-feedback  text-red-500 text-xs px-2 pt-1"
+                  className="invalid-feedback  text-output-error text-xs px-2 pt-1"
                   style={errors.email ? { display: "block" } : {}}
                 >
                   {errors.email?.message}
@@ -88,16 +91,14 @@ const LoginForm = () => {
 
             <div className="mb-10">
               <label
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block dark-accent dark:text-light-accent text-sm font-bold mb-2"
                 htmlFor="password"
               >
                 Password
               </label>
               <input
-                className=" appearance-none border 
-            rounded w-full py-2 px-3 text-gray-700 
-            leading-tight focus:outline-none
-             focus:shadow-outline"
+                className="appearance-none transition-border-color duration-200  border 
+                rounded border-light-accent focus:border-light-call-sec  dark:border-dark-accent dark:bg-dark-bg dark:focus:border-white w-full py-2 px-3 text-light-text-small text-sm font-semibold focus:outline-none"
                 id="password"
                 type="password"
                 placeholder="Password"
@@ -105,7 +106,7 @@ const LoginForm = () => {
               />{" "}
               {
                 <div
-                  className="invalid-feedback  text-red-500 text-xs px-2 pt-1"
+                  className="invalid-feedback  text-output-error text-xs px-2 pt-1"
                   style={errors.password ? { display: "block" } : {}}
                 >
                   {errors.password?.message}
@@ -113,7 +114,7 @@ const LoginForm = () => {
               }
             </div>
             <div
-              className="invalid-feedback text-center text-red-500 text-xs px-2 py-2 pt-1 "
+              className="invalid-feedback text-center text-output-error text-xs px-2 py-2 pt-1 "
               style={loginError ? { display: "block" } : {}}
             >
               {loginError ? loginError : null}
@@ -127,18 +128,17 @@ const LoginForm = () => {
               <div className="flex justify-center">
                 <button
                   type="submit"
-                  className="loginBtn   shadow-md mt-2  
-           text-lg   md:text-xl md:mt-4  lg:text-xl"
+                  className="loginBtn  tracking-wide transition-background-color ease-in duration-200 p-2 pr-16 pl-16 bg-light-call-sec rounded text-center text-lg font-semibold text-light-accent cursor-pointer hover:bg-light-hover hover:text-light-call-sec dark:hover:bg-dark-accent"
                 >
                   Login
                 </button>
               </div>
             )}
           </form>
-          <div className="redirectToRegister  text-center mt-4 text-xs lg:text-sm md:text-sm">
+          <div className="redirectToRegister dark-accent dark:text-light-accent text-center mt-4 text-xs lg:text-sm md:text-sm">
             Don't have a account?
             <span
-              className="goToRegisterLink"
+              className="goToRegisterLink text-light-call-sec "
               onClick={() => {
                 navigate("/register");
               }}
@@ -147,8 +147,8 @@ const LoginForm = () => {
               Register
             </span>
           </div>
-          <p className="text-center text-gray-500 text-xs mt-4">
-            &copy;2021 MOD MENUS Corp. All rights reserved.
+          <p className="text-center text-gray-500 text-xs mt-4 dark-accent dark:text-light-accent">
+            &copy;2021 Code Collab Corp. All rights reserved.
           </p>
         </div>
       </div>
