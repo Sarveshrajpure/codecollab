@@ -1,9 +1,10 @@
 import React from "react";
 import Member from "../../Utilities/member";
 import toast from "react-hot-toast";
+import createWhatsAppLink from "../../Utilities/whatsAppMsg";
 import { useNavigate } from "react-router-dom";
 
-const EditorActions = ({ clients, roomId }) => {
+const EditorActions = ({ clients, roomId, username }) => {
   const navigate = useNavigate();
   const copyRoomId = async () => {
     try {
@@ -20,7 +21,7 @@ const EditorActions = ({ clients, roomId }) => {
   return (
     <div className="editorActionsContainer flex flex-col justify-between dark:bg-dark-accent ">
       <div className="roomMemberContainer ">
-        <h3 className="mx-2 my-2">Connected</h3>
+        <h3 className="text-m text-center py-2 ">--- Connected ---</h3>
         <div className="roomMemberBlock  h-32 overflow-x-scroll md:h-96 md:overflow-x-auto ">
           <div className="memberList flex md:justify-center md:flex-wrap gap-3">
             {clients
@@ -33,6 +34,26 @@ const EditorActions = ({ clients, roomId }) => {
       </div>
 
       <div className="flex justify-evenly md:flex-col md:h-56 md:justify-end ">
+        <span className="text-m text-center py-2 ">--- Invite via ---</span>
+        <div className="flex justify-evenly text-2xl ">
+          <button
+            onClick={() => {
+              createWhatsAppLink(username, roomId);
+            }}
+            className="btn  text-whatsApp-green bg-light-accent w-1/2 py-1 cursor-pointer rounded mx-2 "
+          >
+            <i class="fa-brands fa-whatsapp"></i>
+          </button>
+
+          <button
+            onClick={() => {
+              createWhatsAppLink(username, roomId);
+            }}
+            className="btn text-gmail-yellow bg-light-accent w-1/2 py-1 cursor-pointer rounded mx-2"
+          >
+            <i class="fa-solid fa-envelope"></i>
+          </button>
+        </div>
         <button
           onClick={() => {
             copyRoomId();
