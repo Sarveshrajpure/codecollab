@@ -6,6 +6,8 @@ module.exports = {
       transparent: "transparent",
       current: "currentColor",
       white: "#FFFFFF",
+      "gmail-yellow": "#FBBC05",
+      "whatsApp-green": "#25D366",
       "dark-call-sec": "#FFFFFF",
       "dark-accent": "#24242B",
       "dark-bg": "#0D0D0D",

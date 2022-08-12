@@ -3,10 +3,15 @@ import EditorActions from "./components/editorActions";
 import EditorComponent from "./components/editorComponent";
 import Nav from "../Home/components/Nav";
 import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 const EditorPage = () => {
   const socketRef = useRef(null);
   const codeRef = useRef(null);
   const [initialCode, setinitialCode] = useState(null);
+
+  const username = useSelector((state) =>
+    state.User.loginInfo.user.firstName ? state.User.loginInfo.user : ""
+  );
 
   const { roomId } = useParams();
   const [clients, setClients] = useState("");
@@ -15,7 +20,11 @@ const EditorPage = () => {
       <Nav />
       <div className="editorPageBlock   flex flex-col-reverse  md:flex-row ">
         <div className="actionsWrapper   md:w-48">
-          <EditorActions clients={clients} roomId={roomId} />
+          <EditorActions
+            clients={clients}
+            roomId={roomId}
+            username={username.firstName + " " + username.lastName}
+          />
         </div>
         <div className="editorWrapper md:w-5/6">
           <EditorComponent

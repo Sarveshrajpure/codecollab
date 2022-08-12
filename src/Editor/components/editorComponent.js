@@ -16,9 +16,7 @@ const EditorComponent = ({ roomId, setClients }) => {
   const outputRef = useRef(null);
   const navigate = useNavigate();
   const username = useSelector((state) =>
-    state.User.loginInfo.user.firstName
-      ? state.User.loginInfo.user.firstName
-      : ""
+    state.User.loginInfo.user.firstName ? state.User.loginInfo.user : ""
   );
   const [lang, setLang] = useState(
     langRef.current
@@ -54,14 +52,14 @@ const EditorComponent = ({ roomId, setClients }) => {
 
       socketRef.current.emit(ACTIONS.JOIN, {
         roomId,
-        userName: username,
+        userName: username.firstName,
       });
 
       // Listening for joined event
       socketRef.current.on(
         ACTIONS.JOINED,
         ({ clients, userName, socketId }) => {
-          if (userName !== username) {
+          if (userName !== username.firstName) {
             toast.success(`${userName} joined the room.`);
           }
           setClients(clients);
@@ -101,10 +99,11 @@ const EditorComponent = ({ roomId, setClients }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  //listening to language change
   useEffect(() => {
     if (socketRef.current) {
       // Listening to language change event
-      socketRef.current.on(ACTIONS.LANGUAGE_CHANGE, ({ lang }) => {
+      socketRef.current.on(ACTIONS.LANGUAGE_CHANGE, ({ lang, userName }) => {
         if (lang !== null) {
           langRef.current = lang;
           setLang(languageOptions[langRef.current]);
@@ -112,18 +111,32 @@ const EditorComponent = ({ roomId, setClients }) => {
           document.querySelector("#language_Select").value = lang;
 
           console.log(document.querySelector("#language_Select").value);
+
+          if (userName !== username.firstName) {
+            toast.success(
+              `${userName} changed language to ${
+                languageOptions[langRef.current].value
+              }.`,
+              { icon: "👨‍💻" }
+            );
+          }
         }
       });
     }
   }, [socketRef.current]);
 
+  //listening to output change
   useEffect(() => {
     if (socketRef.current) {
       // Listening to output change event
-      socketRef.current.on(ACTIONS.OUTPUT_CHANGE, ({ output }) => {
+      socketRef.current.on(ACTIONS.OUTPUT_CHANGE, ({ output, userName }) => {
         if (output !== null) {
           outputRef.current = output;
           setResult(output);
+
+          if (userName !== username.firstName) {
+            toast.success(`${userName} ran the code.`, { icon: "⚙️" });
+          }
         }
       });
     }
@@ -147,6 +160,7 @@ const EditorComponent = ({ roomId, setClients }) => {
         socketRef.current.emit(ACTIONS.OUTPUT_CHANGE, {
           roomId,
           output: outputRef.current,
+          userName: username.firstName,
         });
         setOutputColor("output-error");
       } else if (statusId === 3) {
@@ -160,6 +174,7 @@ const EditorComponent = ({ roomId, setClients }) => {
         socketRef.current.emit(ACTIONS.OUTPUT_CHANGE, {
           roomId,
           output: outputRef.current,
+          userName: username.firstName,
         });
 
         setOutputColor("output-green");
@@ -169,6 +184,7 @@ const EditorComponent = ({ roomId, setClients }) => {
         socketRef.current.emit(ACTIONS.OUTPUT_CHANGE, {
           roomId,
           output: outputRef.current,
+          userName: username.firstName,
         });
         setOutputColor("output-error");
       } else {
@@ -177,6 +193,7 @@ const EditorComponent = ({ roomId, setClients }) => {
         socketRef.current.emit(ACTIONS.OUTPUT_CHANGE, {
           roomId,
           output: outputRef.current,
+          userName: username.firstName,
         });
         setOutputColor("output-error");
       }
@@ -198,6 +215,7 @@ const EditorComponent = ({ roomId, setClients }) => {
               socketRef.current.emit(ACTIONS.LANGUAGE_CHANGE, {
                 roomId,
                 lang: index,
+                userName: username.firstName,
               });
             }}
           >
