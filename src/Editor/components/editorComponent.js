@@ -9,7 +9,7 @@ import ACTIONS from "../../Utilities/userSocketActions";
 import toast from "react-hot-toast";
 import { initSocket } from "../../Utilities/socket";
 import { useNavigate } from "react-router-dom";
-const EditorComponent = ({ roomId, setInitialCode, setClients, clients }) => {
+const EditorComponent = ({ roomId, setClients }) => {
   const socketRef = useRef(null);
   const codeRef = useRef(null);
   const langRef = useRef(null);
@@ -30,7 +30,9 @@ const EditorComponent = ({ roomId, setInitialCode, setClients, clients }) => {
           value: "javascript",
         }
   );
-  const [editorCode, setEditorCode] = useState();
+  const [editorCode, setEditorCode] = useState(
+    
+  );
 
   const [loader, setLoader] = useState(false);
   const [result, setResult] = useState("");
@@ -96,6 +98,7 @@ const EditorComponent = ({ roomId, setInitialCode, setClients, clients }) => {
       socketRef.current.off(ACTIONS.JOINED);
       socketRef.current.off(ACTIONS.DISCONNECTED);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

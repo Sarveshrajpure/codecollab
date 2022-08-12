@@ -21,6 +21,7 @@ const CodeEditor = ({ language, socketRef, roomId, setEditorCode }) => {
         console.log("receieving", code);
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socketRef.current]);
 
   const handleEditorChange = (val) => {
