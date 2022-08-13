@@ -7,5 +7,5 @@ export const initSocket = async () => {
     timeout: 10000,
     transports: ["websocket"],
   };
-  return io("http://localhost:3002", options);
+  return io("http://offdutyninjas.site:3002", options);
 };
