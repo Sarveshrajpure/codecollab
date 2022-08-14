@@ -59,7 +59,7 @@ const PrivateRoute = () => {
     return <div>Loading..</div>;
   }
 
-  return state === "loggedin" ? <Outlet /> : <Navigate to="/" />;
+  return state === "loggedin" ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default PrivateRoute;

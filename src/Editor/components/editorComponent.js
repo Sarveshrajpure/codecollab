@@ -4,6 +4,7 @@ import { languageOptions } from "../../Utilities/languageOptions";
 import { CompileAndRun } from "../editorAction";
 import { useSelector } from "react-redux";
 import atob from "atob";
+import OutputDetails from "./outputDetails";
 import "./editorComponent.css";
 import ACTIONS from "../../Utilities/userSocketActions";
 import toast from "react-hot-toast";
@@ -28,10 +29,8 @@ const EditorComponent = ({ roomId, setClients }) => {
           value: "javascript",
         }
   );
-  const [editorCode, setEditorCode] = useState(
-    
-  );
-
+  const [editorCode, setEditorCode] = useState();
+  const [response, setResponse] = useState();
   const [loader, setLoader] = useState(false);
   const [result, setResult] = useState("");
   const [outputColor, setOutputColor] = useState("light-hover");
@@ -144,59 +143,64 @@ const EditorComponent = ({ roomId, setClients }) => {
 
   const handleCompile = async () => {
     setLoader(true);
+    if (editorCode) {
+      let response = await CompileAndRun({
+        LangId: lang.id,
+        code: editorCode,
+        input: "",
+      });
 
-    let response = await CompileAndRun({
-      LangId: lang.id,
-      code: editorCode,
-      input: "",
-    });
+      if (response) {
+        setResponse(response);
+        console.log(response);
+        let statusId = response?.status?.id;
+        if (statusId === 6) {
+          setResult(atob(response?.compile_output));
+          outputRef.current = atob(response?.compile_output);
+          socketRef.current.emit(ACTIONS.OUTPUT_CHANGE, {
+            roomId,
+            output: outputRef.current,
+            userName: username.firstName,
+          });
+          setOutputColor("output-error");
+        } else if (statusId === 3) {
+          console.log(statusId);
+          setResult(
+            atob(response.stdout) !== null ? atob(response.stdout) : null
+          );
+          outputRef.current =
+            atob(response.stdout) !== null ? atob(response.stdout) : null;
 
-    if (response) {
-      console.log(response);
-      let statusId = response?.status?.id;
-      if (statusId === 6) {
-        setResult(atob(response?.compile_output));
-        outputRef.current = atob(response?.compile_output);
-        socketRef.current.emit(ACTIONS.OUTPUT_CHANGE, {
-          roomId,
-          output: outputRef.current,
-          userName: username.firstName,
-        });
-        setOutputColor("output-error");
-      } else if (statusId === 3) {
-        console.log(statusId);
-        setResult(
-          atob(response.stdout) !== null ? atob(response.stdout) : null
-        );
-        outputRef.current =
-          atob(response.stdout) !== null ? atob(response.stdout) : null;
+          socketRef.current.emit(ACTIONS.OUTPUT_CHANGE, {
+            roomId,
+            output: outputRef.current,
+            userName: username.firstName,
+          });
 
-        socketRef.current.emit(ACTIONS.OUTPUT_CHANGE, {
-          roomId,
-          output: outputRef.current,
-          userName: username.firstName,
-        });
-
-        setOutputColor("output-green");
-      } else if (statusId === 5) {
-        setResult(`Time Limit Exceeded`);
-        outputRef.current = `Time Limit Exceeded`;
-        socketRef.current.emit(ACTIONS.OUTPUT_CHANGE, {
-          roomId,
-          output: outputRef.current,
-          userName: username.firstName,
-        });
-        setOutputColor("output-error");
-      } else {
-        setResult(atob(response?.stderr));
-        outputRef.current = atob(response?.stderr);
-        socketRef.current.emit(ACTIONS.OUTPUT_CHANGE, {
-          roomId,
-          output: outputRef.current,
-          userName: username.firstName,
-        });
-        setOutputColor("output-error");
+          setOutputColor("output-green");
+        } else if (statusId === 5) {
+          setResult(`Time Limit Exceeded`);
+          outputRef.current = `Time Limit Exceeded`;
+          socketRef.current.emit(ACTIONS.OUTPUT_CHANGE, {
+            roomId,
+            output: outputRef.current,
+            userName: username.firstName,
+          });
+          setOutputColor("output-error");
+        } else {
+          setResult(atob(response?.stderr));
+          outputRef.current = atob(response?.stderr);
+          socketRef.current.emit(ACTIONS.OUTPUT_CHANGE, {
+            roomId,
+            output: outputRef.current,
+            userName: username.firstName,
+          });
+          setOutputColor("output-error");
+        }
       }
+    } else {
+      setResult(`Nothing to compile!`);
+      setResponse("");
     }
     setLoader(false);
   };
@@ -265,15 +269,24 @@ const EditorComponent = ({ roomId, setClients }) => {
               />
             </div>
           </div>
-          <div className="flex justify-center md:justify-end py-5 px-2">
-            <button
-              className=" tracking-wide transition-background-color ease-in duration-200 p-2 pr-6 pl-6 bg-light-call-sec rounded text-center text-lg font-semibold text-light-accent cursor-pointer hover:bg-light-hover hover:text-light-call-sec dark:hover:bg-dark-accent"
-              onClick={() => {
-                handleCompile();
-              }}
-            >
-              Compile and Run
-            </button>
+          <div className="flex justify-between md:justify-between  px-2">
+            <div className="py-2 px-2">
+              {result && !loader ? (
+                <OutputDetails outputDetails={response} />
+              ) : (
+                ""
+              )}
+            </div>
+            <div className="py-5">
+              <button
+                className=" tracking-wide transition-background-color ease-in duration-200 p-2 pr-6 pl-6 bg-light-call-sec rounded text-center text-lg font-semibold text-light-accent cursor-pointer hover:bg-light-hover hover:text-light-call-sec dark:hover:bg-dark-accent"
+                onClick={() => {
+                  handleCompile();
+                }}
+              >
+                Compile and Run
+              </button>
+            </div>
           </div>
         </div>
       </div>

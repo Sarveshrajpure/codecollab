@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import PreventSigninRoute from "./Utilities/preventSignRoute";
+import PrivateRoute from "./Utilities/PrivateRoute";
 import Register from "./Register";
 import Login from "./Login";
 import Home from "./Home";
@@ -24,10 +25,14 @@ function App() {
       ></Toaster>
       <Routes>
         <Route exact path="" element={<Home />} />
-        <Route exact path="/register" element={<Register />} />
-        <Route exact path="/login" element={<Login />} />
-        <Route exact path="/editor/:roomId" element={<EditorPage />} />
-        <Route exact path="/workspaces" element={<WorkSpacePage />} />
+        <Route path="/" element={<PreventSigninRoute />}>
+          <Route exact path="/register" element={<Register />} />
+          <Route exact path="/login" element={<Login />} />
+        </Route>
+        <Route path="/" element={<PrivateRoute />}>
+          <Route exact path="/editor/:roomId" element={<EditorPage />} />
+          <Route exact path="/workspaces" element={<WorkSpacePage />} />
+        </Route>
       </Routes>
     </div>
   );

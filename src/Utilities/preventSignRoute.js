@@ -24,7 +24,7 @@ const PreventSigninRoute = () => {
     return <div>Loading..</div>;
   }
 
-  return state === "redirect" ? <Outlet /> : <Navigate to="/dashboard" />;
+  return state === "redirect" ? <Outlet /> : <Navigate to="/workspaces" />;
 };
 
 export default PreventSigninRoute;

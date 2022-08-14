@@ -49,7 +49,7 @@ const CodeEditor = ({ language, socketRef, roomId, setEditorCode }) => {
         language={language || "javascript"}
         value={value}
         theme={themeObj}
-        defaultValue="// some comment"
+        defaultValue="//lets Collaborate 👨🏼‍💻"
         onChange={(val) => {
           handleEditorChange(val);
         }}
