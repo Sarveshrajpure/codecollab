@@ -23,7 +23,6 @@ export const userIsAuth = async () => {
   if (!getTokenCookie()) {
     return false;
   } else {
-    console.log(getAuthHeader());
     const user = await axiosInstance.get("/auth/isauth", getAuthHeader());
     console.log("user exists");
 

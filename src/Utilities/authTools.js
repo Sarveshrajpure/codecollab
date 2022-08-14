@@ -6,5 +6,5 @@ export const removeTokenCookie = async () => {
   return response;
 };
 export const getAuthHeader = () => {
-  return { headers: { Authorization: `Bearer ${getTokenCookie()}` } };
+  return { headers: { authorization: `${getTokenCookie()}` } };
 };
