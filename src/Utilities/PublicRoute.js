@@ -21,30 +21,7 @@ const PublicRoute = () => {
           setState(isUserLogged ? "loggedin" : "redirect");
         } else {
           console.log("cookie not found");
-          dispatch(
-            verify_user({
-              user: {
-                firstname: null,
-                lastname: null,
-                email: null,
-                buinessname: null,
-                phone: null,
-              },
-              auth: null,
-            })
-          );
-          dispatch(
-            login_user({
-              user: {
-                firstname: null,
-                lastname: null,
-                email: null,
-                buinessname: null,
-                phone: null,
-              },
-              auth: null,
-            })
-          );
+
           setState(isUserLogged ? "loggedin" : "redirect");
         }
       } catch {

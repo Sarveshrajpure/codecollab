@@ -24,8 +24,8 @@ function App() {
         }}
       ></Toaster>
       <Routes>
-        <Route exact path="" element={<Home />} />
         <Route path="/" element={<PreventSigninRoute />}>
+          <Route exact path="" element={<Home />} />
           <Route exact path="/register" element={<Register />} />
           <Route exact path="/login" element={<Login />} />
         </Route>
