@@ -22,7 +22,7 @@ const EditorActions = ({ clients, roomId, username }) => {
     <div className="editorActionsContainer flex flex-col justify-between dark:bg-dark-accent ">
       <div className="roomMemberContainer ">
         <h3 className="text-m text-center py-2 ">--- Connected ---</h3>
-        <div className="roomMemberBlock  h-32 overflow-x-scroll md:h-96 md:overflow-x-auto ">
+        <div className="roomMemberBlock  h-18 overflow-x-scroll md:h-96 md:overflow-x-auto ">
           <div className="memberList flex md:justify-center md:flex-wrap gap-3">
             {clients
               ? clients.map((mem) => (
