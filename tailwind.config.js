@@ -20,7 +20,12 @@ module.exports = {
       "call-primary": "#E91E63",
       "output-error": "#DC143C",
       "output-green": "#4BB543",
+      "grey-end": "#232526",
+      "grey-start": "#414345",
+      "light-grey-start": "#7D7D7D",
+      "light-grey-end": "#696969",
     },
+
     extend: {},
   },
   plugins: [],

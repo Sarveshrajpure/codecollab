@@ -2,13 +2,30 @@ import React, { useEffect, useState } from "react";
 import { defineTheme } from "./defineTheme";
 import { ThemeContext } from "./themeContext";
 import ACTIONS from "./userSocketActions";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import atob from "atob";
 
 import Editor from "@monaco-editor/react";
 
-const CodeEditor = ({ language, socketRef, roomId, setEditorCode }) => {
+const CodeEditor = ({
+  language,
+  socketRef,
+  roomId,
+  setEditorCode,
+  isFile,
+  fileContent,
+}) => {
   const { theme } = React.useContext(ThemeContext);
   const [themeObj, setTheme] = useState("cobalt");
   const [value, setValue] = useState("");
+
+  useEffect(() => {
+    if (fileContent) {
+      setValue(atob(fileContent));
+      setEditorCode(atob(fileContent));
+    }
+  }, [fileContent, setEditorCode]);
 
   useEffect(() => {
     if (socketRef.current) {
