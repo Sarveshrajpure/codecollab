@@ -7,7 +7,7 @@ import { RegisterUser } from "../registerAction";
 import { register_user } from "../../Actions/userActions";
 import { useDispatch } from "react-redux";
 import Nav from "../../Home/components/Nav";
-import spinner from "../../assests/spinner.gif";
+import { Oval } from "react-loader-spinner";
 import Footer from "../../Home/components/Footer";
 
 import "./RegisterForm.css";
@@ -227,9 +227,9 @@ const RegisterForm = () => {
               {registerError ? registerError : null}
             </div>
 
-            {loader ? (
-              <div className="flex justify-center">
-                <img className="w-16" src={spinner} alt="spinner" />
+            {false ? (
+              <div className=" flex justify-center w-full p-2">
+                <Oval color="#5063F0" height={30} width={30} />
               </div>
             ) : (
               <div className="flex justify-center">

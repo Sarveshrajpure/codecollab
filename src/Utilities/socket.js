@@ -1,4 +1,6 @@
 import { io } from "socket.io-client";
+const L_URL = "http://localhost:3002";
+const P_URL = "https://offdutyninjas.site";
 
 export const initSocket = async () => {
   const options = {
@@ -7,5 +9,5 @@ export const initSocket = async () => {
     timeout: 10000,
     transports: ["websocket"],
   };
-  return io("http://localhost:3002", options);
+  return io(P_URL, options);
 };

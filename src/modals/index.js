@@ -4,7 +4,6 @@ import CreateWorkSpace from "./components/createWorkSpace";
 
 const Modal = ({ editorCode, langEx, setModalOpen }) => {
   const [createOpen, setCreateOpen] = useState(false);
-
   const [createdWorkspace, setCreatedWorkSpace] = useState("");
 
   return (

@@ -5,6 +5,7 @@ import { ThemeContext } from "../../Utilities/themeContext";
 import { v4 as uuidV4 } from "uuid";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
+import { Oval } from "react-loader-spinner";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { joinRoomSchema } from "../../validations/joinRoomValidation";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 const JoinCreateRoom = () => {
   const { theme } = React.useContext(ThemeContext);
   const [roomId, setRoomId] = useState("");
+  const [loader, setLoader] = useState(false);
   const [userName, setUserName] = useState("sarvesh");
   const navigate = useNavigate();
   const username = "sarvesh";
@@ -25,17 +27,21 @@ const JoinCreateRoom = () => {
   });
 
   const createNewRoom = () => {
+    setLoader(true);
     let id = uuidV4();
     setRoomId(id);
     toast.success("Created a new room");
     let inputField = document.getElementById("roomId");
     inputField.focus();
+    setLoader(false);
   };
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
     try {
+      setLoader(true);
       if (data) {
+        setLoader(false);
         navigate(`/editor/${roomId}`);
       }
     } catch (err) {}
@@ -107,15 +113,21 @@ const JoinCreateRoom = () => {
               </div>
             }
           </div>
-          <div className="joinCreateRoomJoinBtnWrapper flex justify-center md:justify-end md:w-4/6 ">
-            <button
-              type="submit"
-              id="joinBtn"
-              className="joinCreateRoomJoinBtn tracking-wide transition-background-color ease-in duration-200 p-2 pr-6 pl-6 bg-light-call-sec rounded text-center text-lg font-semibold text-light-accent cursor-pointer hover:bg-light-hover hover:text-light-call-sec dark:hover:bg-dark-accent"
-            >
-              Join
-            </button>
-          </div>
+          {loader ? (
+            <div className=" flex justify-center w-full p-2">
+              <Oval color="#5063F0" height={30} width={30} />
+            </div>
+          ) : (
+            <div className="joinCreateRoomJoinBtnWrapper flex justify-center md:justify-end md:w-4/6 ">
+              <button
+                type="submit"
+                id="joinBtn"
+                className="joinCreateRoomJoinBtn tracking-wide transition-background-color ease-in duration-200 p-2 pr-6 pl-6 bg-light-call-sec rounded text-center text-lg font-semibold text-light-accent cursor-pointer hover:bg-light-hover hover:text-light-call-sec dark:hover:bg-dark-accent"
+              >
+                Join
+              </button>
+            </div>
+          )}
         </form>
       </div>
       <div className="joinCreateRoomCreateRoomBtn mt-1 text-left">

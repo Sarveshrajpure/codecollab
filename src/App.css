@@ -1,11 +1,11 @@
 /* Works on Firefox */
-* {
+/* * {
   scrollbar-width: thin;
   scrollbar-color: #0C4A6E #b6e9eb;
-}
+} */
 
 /* Works on Chrome, Edge, and Safari */
-*::-webkit-scrollbar {
+/* *::-webkit-scrollbar {
   width: 3px;
 }
 
@@ -17,4 +17,4 @@
   background-color: #0C4A6E;
   border-radius: 20px;
   border: none;
-}
+} */
