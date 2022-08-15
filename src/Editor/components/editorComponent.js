@@ -139,7 +139,9 @@ const EditorComponent = ({ roomId, setClients }) => {
           setResult(output);
 
           if (userName !== username.firstName) {
-            toast.success(`${userName} ran the code.`, { icon: "⚙️" });
+            if (userName) {
+              toast.success(`${userName} ran the code.`, { icon: "⚙️" });
+            }
           }
         }
       });
