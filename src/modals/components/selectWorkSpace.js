@@ -43,13 +43,15 @@ const SelectWorkSpace = () => {
             setSelectWorkSpace(e.target.value);
           }}
         >
-          {workspaceList.map((ele, i) => {
-            return (
-              <option value={ele._id} key={i}>
-                {ele.name}
-              </option>
-            );
-          })}
+          {workspaceList && !loader
+            ? workspaceList.map((ele, i) => {
+                return (
+                  <option value={ele._id} key={i}>
+                    {ele.name}
+                  </option>
+                );
+              })
+            : "Loading..."}
         </select>
       </div>
       <div className="text-center  text-sm p-6">
