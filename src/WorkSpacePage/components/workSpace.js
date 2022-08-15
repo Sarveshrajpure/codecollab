@@ -1,14 +1,42 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux/es/exports";
 import newWorkspaceIconLight from "../../assests/workSpaceLight.svg";
 import newWorkspaceIconDark from "../../assests/workSpaceDark.svg";
 import { ThemeContext } from "../../Utilities/themeContext";
 import JoinCreateRoom from "./JoinCreateRoom";
 import WorkSpaceFiles from "./WorkSpaceFiles";
+import { getAllWorkSpace } from "../workSpaceActions";
+import toast from "react-hot-toast";
 import "./workSpace.css";
 
 const WorkSpace = () => {
   const { theme } = React.useContext(ThemeContext);
+  const [workspaces, setWorkspaces] = useState([]);
+  const [selectedWorkspace, setSelectedWorkspace] = useState("default");
+  const [workSpacesError, setWorkSpaceError] = useState("");
+  const user = useSelector((state) =>
+    state.User.loginInfo.user.firstName ? state.User.loginInfo.user : ""
+  );
 
+  useEffect(() => {
+    async function getWorkspaces() {
+      try {
+        let userId = { userId: user._id };
+        let response = await getAllWorkSpace(userId);
+        setWorkspaces(response);
+      } catch (err) {
+        toast.error("Failed to fetch workspaces!");
+        if (err.response) {
+          setWorkSpaceError(err.response.data.message);
+        } else {
+          setWorkSpaceError(err.message);
+        }
+      }
+    }
+
+    getWorkspaces();
+  }, []);
+  console.log(selectedWorkspace);
   return (
     <div className="workspaceWrapper ">
       <div className="workSpaceNavWrapper flex pt-5 pb-5 px-4 md:px-24 md:pt-8 md:pb-5">
@@ -17,10 +45,24 @@ const WorkSpace = () => {
             Work-space
           </h3>
           <div className="workSpaceNavDropDown w-9/12 ">
-            <select className="align-middle outline-none m-0 w-full border-2 border-light-accent  text-light-call-sec text-sm md:text-lg rounded-lg  focus:border-light-accent   p-2.5  dark:bg-dark-bg dark:border-dark-accent dark:placeholder-dark-call-sec dark:text-dark-call-sec  dark:focus:border-dark-accent">
-              <option selected>Choose a work-space</option>
-              <option value="US">My worksapce</option>
-              <option value="CA">College worksapce</option>
+            <select
+              className="align-middle outline-none m-0 w-full border-2 border-light-accent  text-light-call-sec text-sm md:text-lg rounded-lg  focus:border-light-accent   p-2.5  dark:bg-dark-bg dark:border-dark-accent dark:placeholder-dark-call-sec dark:text-dark-call-sec  dark:focus:border-dark-accent"
+              defaultValue={selectedWorkspace}
+              onChange={(e) => {
+                setSelectedWorkspace(e.target.value);
+              }}
+            >
+              <option value="default" disabled hidden>
+                Select a workspace or recent files
+              </option>
+              <option value={"recent"}>Recent files</option>
+              {workspaces.map((ele, index) => {
+                return (
+                  <option value={ele._id} key={index}>
+                    {ele.name}
+                  </option>
+                );
+              })}
             </select>
           </div>
         </div>
@@ -43,7 +85,10 @@ const WorkSpace = () => {
       </div>
       <div className="Files-RoomFunctionsWrapper md:flex pt-5 pb-5 px-4 md:px-24 md:pt-8 md:pb-5">
         <div className="md:w-4/6">
-          <WorkSpaceFiles />
+          <WorkSpaceFiles
+            workspace={selectedWorkspace}
+            userId={user ? user._id : ""}
+          />
         </div>
         <div className="md:w-2/6">
           <JoinCreateRoom />

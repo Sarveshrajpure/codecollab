@@ -10,6 +10,8 @@ import ACTIONS from "../../Utilities/userSocketActions";
 import toast from "react-hot-toast";
 import { initSocket } from "../../Utilities/socket";
 import { useNavigate } from "react-router-dom";
+import Modal from "../../modals";
+
 const EditorComponent = ({ roomId, setClients }) => {
   const socketRef = useRef(null);
   const codeRef = useRef(null);
@@ -27,12 +29,14 @@ const EditorComponent = ({ roomId, setClients }) => {
           label: "JavaScript (Node.js 12.14.0)",
           name: "JavaScript (Node.js 12.14.0)",
           value: "javascript",
+          extension: "js",
         }
   );
   const [editorCode, setEditorCode] = useState();
   const [response, setResponse] = useState();
   const [loader, setLoader] = useState(false);
   const [result, setResult] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
   const [outputColor, setOutputColor] = useState("light-hover");
 
   useEffect(() => {
@@ -205,9 +209,16 @@ const EditorComponent = ({ roomId, setClients }) => {
     setLoader(false);
   };
 
+  const handleSave = () => {
+    if (editorCode) {
+      console.log(editorCode);
+      setModalOpen(true);
+    }
+  };
+
   return (
     <div className="shadow dark:shadow-dark-accent rounded ml-1">
-      <div>
+      <div className="flex justify-between rounded-t p-1 w-22 bg-light-accent dark:bg-dark-accent">
         <div className="langDropDown rounded-t p-1 w-22 bg-light-accent dark:bg-dark-accent">
           <select
             id="language_Select"
@@ -232,7 +243,29 @@ const EditorComponent = ({ roomId, setClients }) => {
             })}
           </select>
         </div>
+
+        <div>
+          <button
+            className=" tracking-wide transition-background-color ease-in duration-200 p-1 pr-3 pl-3 bg-light-call-sec rounded text-center text-m font-semibold text-light-accent cursor-pointer hover:bg-light-hover hover:text-light-call-sec dark:hover:bg-dark-accent"
+            onClick={() => {
+              editorCode ? handleSave() : toast.error(`Nothing to Save `);
+            }}
+          >
+            Save
+          </button>
+        </div>
       </div>
+      {modalOpen ? (
+        <Modal
+          editorCode={editorCode}
+          langEx={lang.extension}
+          setModalOpen={(val) => {
+            setModalOpen(val);
+          }}
+        />
+      ) : (
+        ""
+      )}
       <div className="editorFunctionContainer  md:flex">
         <div className="my-1 md:w-4/6">
           <CodeEditor

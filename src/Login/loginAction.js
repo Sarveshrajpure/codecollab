@@ -7,7 +7,6 @@ import {
   removeTokenCookie,
 } from "../Utilities/authTools.js";
 
-axios.defaults.headers.post["Content-Type"] = "application/json";
 
 export const LoginUser = async (values) => {
   const loginInfo = await axiosInstance.post("/auth/signin", {
