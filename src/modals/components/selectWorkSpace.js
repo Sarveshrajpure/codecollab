@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getAllWorkSpace } from "../../WorkSpacePage/workSpaceActions";
 
-const SelectWorkSpace = () => {
+const SelectWorkSpace = ({ setOpenCreate }) => {
   const [workspaceList, setWorkSpaceList] = useState();
   const [selectWorkspace, setSelectWorkSpace] = useState("");
   const [loader, setLoader] = useState();
@@ -34,7 +34,7 @@ const SelectWorkSpace = () => {
   }, [user._id]);
 
   return (
-    <div className="absolute z-20 p-6 inset-1/4 mx-auto  w-96 h-fit shadow-lg rounded-md bg-white">
+    <div className="">
       <div className="workSpaceNavDropDown flex justify-center ">
         <select
           id="language_Select"
@@ -54,8 +54,15 @@ const SelectWorkSpace = () => {
             : "Loading..."}
         </select>
       </div>
-      <div className="text-center  text-sm p-6">
-        <div className="cursor-pointer">Create a new Work Space</div>
+      <div
+        className="text-center  text-sm p-6 "
+        onClick={() => {
+          setOpenCreate(true);
+        }}
+      >
+        <div className="cursor-pointer text-light-call-sec">
+          Create a new Work Space
+        </div>
       </div>
     </div>
   );
