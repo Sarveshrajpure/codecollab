@@ -247,7 +247,7 @@ const EditorComponent = ({ roomId, setClients }) => {
           <button
             className=" tracking-wide transition-background-color ease-in duration-200 p-1 pr-3 pl-3 bg-light-call-sec rounded text-center text-m font-semibold text-light-accent cursor-pointer hover:bg-light-hover hover:text-light-call-sec dark:hover:bg-dark-accent"
             onClick={() => {
-              handleSave();
+              editorCode ? handleSave() : toast.error(`Nothing to Save `);
             }}
           >
             Save
