@@ -42,10 +42,11 @@ const JoinCreateRoom = () => {
       setLoader(true);
       if (data) {
         setLoader(false);
-        navigate(`/editor/${roomId}`);
+        navigate(`/editor/${roomId}/false`);
       }
     } catch (err) {}
   };
+  console.log(roomId);
   return (
     <div className="joinCreateRoomWrapper ">
       <div className="joinCreateRoomLogo flex justify-center md:justify-start">
@@ -69,7 +70,7 @@ const JoinCreateRoom = () => {
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="joinCreateRoomFormInput mt-4 md:w-8/12">
-            <div className="mb-4 ">
+            <div className="mb-2">
               <input
                 className="appearance-none transition-border-color duration-200  border 
           rounded border-light-accent focus:border-light-call-sec  dark:border-dark-accent dark:bg-dark-bg dark:focus:border-white w-full py-2 px-3 text-light-text-small text-sm font-semibold focus:outline-none "
@@ -92,7 +93,7 @@ const JoinCreateRoom = () => {
                 </div>
               }
             </div>
-            <div className="mb-4  hidden">
+            <div className=" hidden">
               <input
                 className="appearance-none transition-border-color duration-200  border 
           rounded border-light-accent focus:border-light-call-sec  dark:border-dark-accent dark:bg-dark-bg dark:focus:border-white w-full py-2 px-3 text-light-text-small text-sm font-semibold focus:outline-none "

@@ -23,6 +23,7 @@ function App() {
           },
         }}
       ></Toaster>
+
       <Routes>
         <Route path="/" element={<PreventSigninRoute />}>
           <Route exact path="" element={<Home />} />
@@ -30,7 +31,11 @@ function App() {
           <Route exact path="/login" element={<Login />} />
         </Route>
         <Route path="/" element={<PrivateRoute />}>
-          <Route exact path="/editor/:roomId" element={<EditorPage />} />
+          <Route
+            exact
+            path="/editor/:roomId/:isFile"
+            element={<EditorPage />}
+          />
           <Route exact path="/workspaces" element={<WorkSpacePage />} />
         </Route>
       </Routes>

@@ -6,6 +6,16 @@ import {
   removeTokenCookie,
 } from "../Utilities/authTools.js";
 
+export const getOneFile = async (value) => {
+  let file = await axiosInstance.post(
+    "/document/getone",
+    value,
+    getAuthHeader()
+  );
+
+  return file.data;
+};
+
 export const getRecentFiles = async (value) => {
   let files = await axiosInstance.post(
     "/document/getallbyuserId",

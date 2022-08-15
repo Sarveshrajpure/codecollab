@@ -5,5 +5,4 @@ export const VERIFY_USER = "verify_user";
 
 export const SIGNOUT_USER = "signout_user";
 
-export const ADD_TO_CART = "add_to_cart";
-export const MENU_OPTION = "set_menu_option";
+export const ADD_FILE_CONTENT = "add_file_content";

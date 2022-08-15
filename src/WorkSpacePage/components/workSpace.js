@@ -44,21 +44,25 @@ const WorkSpace = () => {
           <h3 className="tracking-wide pb-2 pl-1 md:w-1/6 md:pt-2 text-base  text-light-call-sec font-semibold md:text-2xl dark:text-white ">
             Work-space
           </h3>
-          <div className="workSpaceNavDropDown w-9/12 ">
+          <div className="workSpaceNavDropDown w-5/6 md:w-6/12 ">
             <select
-              className="align-middle outline-none m-0 w-full border-2 border-light-accent  text-light-call-sec text-sm md:text-lg rounded-lg  focus:border-light-accent   p-2.5  dark:bg-dark-bg dark:border-dark-accent dark:placeholder-dark-call-sec dark:text-dark-call-sec  dark:focus:border-dark-accent"
+              className="align-middle outline-none m-0 w-full border-2 border-light-accent 
+               text-light-call-sec text-sm md:text-lg rounded-lg 
+                focus:border-light-accent p-2.5  dark:bg-dark-bg
+                 dark:border-dark-accent dark:placeholder-dark-call-sec
+                  dark:text-dark-call-sec  dark:focus:border-dark-accent"
               defaultValue={selectedWorkspace}
               onChange={(e) => {
                 setSelectedWorkspace(e.target.value);
               }}
             >
               <option value="default" disabled hidden>
-                Select a workspace or recent files
+                Select a workspace
               </option>
               <option value={"recent"}>Recent files</option>
               {workspaces.map((ele, index) => {
                 return (
-                  <option value={ele._id} key={index}>
+                  <option value={ele._id} key={index}>  
                     {ele.name}
                   </option>
                 );
@@ -83,7 +87,7 @@ const WorkSpace = () => {
           </div>
         </div>
       </div>
-      <div className="Files-RoomFunctionsWrapper md:flex pt-5 pb-5 px-4 md:px-24 md:pt-8 md:pb-5">
+      <div className="Files-RoomFunctionsWrapper flex flex-col-reverse md:flex-row  pt-5 pb-5 px-4 md:px-24 md:pt-8 md:pb-5">
         <div className="md:w-4/6">
           <WorkSpaceFiles
             workspace={selectedWorkspace}
