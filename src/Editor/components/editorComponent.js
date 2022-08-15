@@ -29,6 +29,7 @@ const EditorComponent = ({ roomId, setClients }) => {
           label: "JavaScript (Node.js 12.14.0)",
           name: "JavaScript (Node.js 12.14.0)",
           value: "javascript",
+          extension: "js",
         }
   );
   const [editorCode, setEditorCode] = useState();
@@ -254,7 +255,17 @@ const EditorComponent = ({ roomId, setClients }) => {
           </button>
         </div>
       </div>
-      {modalOpen ? <Modal /> : ""}
+      {modalOpen ? (
+        <Modal
+          editorCode={editorCode}
+          langEx={lang.extension}
+          setModalOpen={(val) => {
+            setModalOpen(val);
+          }}
+        />
+      ) : (
+        ""
+      )}
       <div className="editorFunctionContainer  md:flex">
         <div className="my-1 md:w-4/6">
           <CodeEditor

@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import SaveFileForm from "./saveFileForm";
 import { getAllWorkSpace } from "../../WorkSpacePage/workSpaceActions";
 
-const SelectWorkSpace = ({ setOpenCreate }) => {
+const SelectWorkSpace = ({
+  setOpenCreate,
+  editorCode,
+  langEx,
+  setModalOpen,
+}) => {
   const [workspaceList, setWorkSpaceList] = useState();
-  const [selectWorkspace, setSelectWorkSpace] = useState("");
+  const [fileOpen, setFileOpen] = useState(false);
   const [loader, setLoader] = useState();
+  const [selectWorkspace, setSelectWorkSpace] = useState("");
   const [workSpaceError, setWorkSpaceError] = useState();
   const user = useSelector((state) =>
     state.User.loginInfo.user.firstName ? state.User.loginInfo.user : ""
@@ -20,7 +27,7 @@ const SelectWorkSpace = ({ setOpenCreate }) => {
         let response = await getAllWorkSpace(sendData);
         setWorkSpaceList(response);
         setLoader(false);
-        console.log(response);
+        setFileOpen(true);
       } catch (err) {
         setLoader(false);
         if (err.response) {
@@ -32,6 +39,8 @@ const SelectWorkSpace = ({ setOpenCreate }) => {
     };
     getWorkSpaces();
   }, [user._id]);
+
+  console.log(selectWorkspace);
 
   return (
     <div className="">
@@ -54,6 +63,19 @@ const SelectWorkSpace = ({ setOpenCreate }) => {
             : "Loading..."}
         </select>
       </div>
+
+      {fileOpen && selectWorkspace ? (
+        <SaveFileForm
+          workSpace={selectWorkspace}
+          editorCode={editorCode}
+          langEx={langEx}
+          setModalOpen={(val) => {
+            setModalOpen(val);
+          }}
+        />
+      ) : (
+        ""
+      )}
       <div
         className="text-center  text-sm p-6 "
         onClick={() => {

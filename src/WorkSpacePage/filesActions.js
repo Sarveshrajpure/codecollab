@@ -23,3 +23,12 @@ export const getFilesByWorkspaceId = async (value) => {
   );
   return files.data;
 };
+
+export const saveFile = async (value) => {
+  let file = await axiosInstance.post(
+    "/document/create",
+    value,
+    getAuthHeader()
+  );
+  return file.data;
+};

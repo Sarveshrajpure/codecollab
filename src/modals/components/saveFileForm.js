@@ -5,12 +5,13 @@ import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { Oval } from "react-loader-spinner";
 import { createWorkSpaceSchema } from "../../validations/createWorkSpaceValidation";
-import { createWorkSpace } from "../../WorkSpacePage/workSpaceActions";
+import { saveFile } from "../../WorkSpacePage/filesActions";
 
-const CreateWorkSpace = ({ setOpenCreate, setCreatedWorkSpace }) => {
-  const [workspaceName, setWorkSpaceName] = useState();
+const SaveFileForm = ({ workSpace, editorCode, langEx, setModalOpen }) => {
+  const [fileName, setFileName] = useState();
+  const [fileSaved, setFileSaved] = useState();
   const [loader, setLoader] = useState();
-  const [workSpaceError, setWorkSpaceError] = useState();
+  const [FileError, setFileError] = useState();
   const user = useSelector((state) =>
     state.User.loginInfo.user.firstName ? state.User.loginInfo.user : ""
   );
@@ -22,7 +23,6 @@ const CreateWorkSpace = ({ setOpenCreate, setCreatedWorkSpace }) => {
     mode: "onChange",
     resolver: yupResolver(createWorkSpaceSchema),
   });
-
   const onSubmit = async (data, e) => {
     e.preventDefault();
     try {
@@ -30,48 +30,54 @@ const CreateWorkSpace = ({ setOpenCreate, setCreatedWorkSpace }) => {
         setLoader(true);
 
         let sendData = {
-          name: data.name,
+          fileName: fileName,
+          fileContent: editorCode,
+          fileExtension: langEx,
+          workspaceId: workSpace,
           userId: user._id,
         };
 
-        let response = await createWorkSpace(sendData);
+        let response = await saveFile(sendData);
 
         if (response) {
+          console.log(response);
           setLoader(false);
-          toast.success(`${response.name} Created! `);
-          setCreatedWorkSpace(response);
-          setOpenCreate(false);
+          toast.success(
+            `${response.fileName}.${response.fileExtension} Created! `
+          );
+          setFileSaved(response);
+          setModalOpen(false);
         }
       }
     } catch (err) {
       setLoader(false);
       if (err.response) {
-        setWorkSpaceError(err.response.data.message);
+        setFileError(err.response.data.message);
       } else {
-        setWorkSpaceError(err.message);
+        setFileError(err.message);
       }
     }
   };
-  console.log(workspaceName);
+
+  console.log(workSpace);
 
   return (
     <div>
-   
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="createWorkSpaceFormInput ">
             <div className="p-2">
               <input
                 className="appearance-none transition-border-color duration-200  border 
-                 rounded border-light-accent focus:border-light-call-sec  dark:border-dark-accent dark:bg-dark-bg dark:focus:border-white w-full py-2 px-3 text-light-text-small text-sm font-semibold focus:outline-none "
+               rounded border-light-accent focus:border-light-call-sec  dark:border-dark-accent dark:bg-dark-bg dark:focus:border-white w-full py-2 px-3 text-light-text-small text-sm font-semibold focus:outline-none "
                 id="nameWorkSpace"
                 name="nameWorkSpace"
                 type="text"
-                placeholder="Workspace Name"
+                placeholder="File Name"
                 onInput={(e) => {
-                  setWorkSpaceName(e.target.value);
+                  setFileName(e.target.value);
                 }}
-                value={workspaceName}
+                value={fileName}
                 {...register("name")}
               />
               {
@@ -86,9 +92,9 @@ const CreateWorkSpace = ({ setOpenCreate, setCreatedWorkSpace }) => {
             {
               <div
                 className="invalid-feedback  text-output-error text-xs px-2 pt-1"
-                style={workSpaceError ? { display: "block" } : {}}
+                style={FileError ? { display: "block" } : {}}
               >
-                {workSpaceError}
+                {FileError}
               </div>
             }
           </div>
@@ -115,4 +121,4 @@ const CreateWorkSpace = ({ setOpenCreate, setCreatedWorkSpace }) => {
   );
 };
 
-export default CreateWorkSpace;
+export default SaveFileForm;
