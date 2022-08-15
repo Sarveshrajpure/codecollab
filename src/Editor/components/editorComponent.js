@@ -3,6 +3,7 @@ import CodeEditor from "../../Utilities/editor";
 import { languageOptions } from "../../Utilities/languageOptions";
 import { CompileAndRun } from "../editorAction";
 import { useSelector } from "react-redux";
+import { Oval } from "react-loader-spinner";
 import atob from "atob";
 import OutputDetails from "./outputDetails";
 import "./editorComponent.css";
@@ -222,7 +223,12 @@ const EditorComponent = ({ roomId, setClients }) => {
         <div className="langDropDown rounded-t p-1 w-22 bg-light-accent dark:bg-dark-accent">
           <select
             id="language_Select"
-            className="align-middle p-0 m-0 outline-none  border-2 border-light-accent  text-light-call-sec text-sm md:text-lg rounded-lg focus:light-call-sec focus:border-light-call-sec focus:ring-light-call-sec block   dark:bg-dark-bg dark:border-dark-accent dark:placeholder-dark-call-sec dark:text-dark-call-sec dark:focus:ring-dark-accent dark:focus:border-dark-accent w-64 "
+            className="align-middle p-0 m-0 outline-none  border-2 border-light-accent 
+             text-light-call-sec text-sm md:text-lg rounded-lg focus:light-call-sec 
+             focus:border-light-call-sec focus:ring-light-call-sec block 
+              dark:bg-dark-bg dark:border-dark-accent
+               dark:placeholder-dark-call-sec dark:text-dark-call-sec
+                dark:focus:ring-dark-accent dark:focus:border-dark-accent w-64 "
             onChange={(e) => {
               let index = parseInt(e.target.value);
               setLang(languageOptions[index]);
@@ -246,7 +252,10 @@ const EditorComponent = ({ roomId, setClients }) => {
 
         <div>
           <button
-            className=" tracking-wide transition-background-color ease-in duration-200 p-1 pr-3 pl-3 bg-light-call-sec rounded text-center text-m font-semibold text-light-accent cursor-pointer hover:bg-light-hover hover:text-light-call-sec dark:hover:bg-dark-accent"
+            className=" tracking-wide transition-background-color ease-in duration-200 p-1 px-4
+             bg-light-call-sec rounded text-center text-sm md:text-lg font-semibold text-light-accent 
+             cursor-pointer hover:bg-light-hover hover:text-light-call-sec
+             "
             onClick={() => {
               editorCode ? handleSave() : toast.error(`Nothing to Save `);
             }}
@@ -287,11 +296,15 @@ const EditorComponent = ({ roomId, setClients }) => {
                   outputColor ? outputColor : "light-hover"
                 }`}
               >
-                {result && !loader
-                  ? result
-                  : loader
-                  ? "Compiling...."
-                  : "Output"}
+                {result && !loader ? (
+                  result
+                ) : loader ? (
+                  <div className="flex justify-center w-full mt-20 p-3 ">
+                    <Oval color="#5063F0" height={30} width={30} />
+                  </div>
+                ) : (
+                  "Output"
+                )}
               </div>
               <div></div>
             </div>
@@ -304,7 +317,7 @@ const EditorComponent = ({ roomId, setClients }) => {
           </div>
           <div className="flex justify-between md:justify-between  px-2">
             <div className="py-2 px-2">
-              {result && !loader ? (
+              {result && result !== "Nothing to compile!" && !loader ? (
                 <OutputDetails outputDetails={response} />
               ) : (
                 ""
@@ -312,7 +325,10 @@ const EditorComponent = ({ roomId, setClients }) => {
             </div>
             <div className="py-5">
               <button
-                className=" tracking-wide transition-background-color ease-in duration-200 p-2 pr-6 pl-6 bg-light-call-sec rounded text-center text-lg font-semibold text-light-accent cursor-pointer hover:bg-light-hover hover:text-light-call-sec dark:hover:bg-dark-accent"
+                className=" tracking-wide transition-background-color ease-in duration-200 p-2 pr-6 pl-6
+                 bg-light-call-sec rounded text-center text-lg font-semibold text-light-accent 
+                 cursor-pointer hover:bg-light-hover hover:text-light-call-sec
+                  dark:hover:bg-dark-accent"
                 onClick={() => {
                   handleCompile();
                 }}

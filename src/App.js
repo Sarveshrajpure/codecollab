@@ -13,7 +13,7 @@ import { ThemeContext } from "./Utilities/themeContext";
 function App() {
   const { theme } = React.useContext(ThemeContext);
   return (
-    <div className="bg-white dark:bg-dark-bg">
+    <div className="bg-white dark:bg-dark-bg min-h-screen">
       <Toaster
         position="top-right"
         toastOptions={{

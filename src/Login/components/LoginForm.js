@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../../validations/loginValidations";
-import spinner from "../../assests/spinner.gif";
+import { Oval } from "react-loader-spinner";
 import Nav from "../../Home/components/Nav";
 import Footer from "../../Home/components/Footer";
 
@@ -121,8 +121,8 @@ const LoginForm = () => {
             </div>
 
             {loader ? (
-              <div className="flex justify-center mt-1">
-                <img className="w-12" src={spinner} alt="spinner" />
+              <div className=" flex justify-center w-full p-2">
+                <Oval color="#5063F0" height={30} width={30} />
               </div>
             ) : (
               <div className="flex justify-center">
