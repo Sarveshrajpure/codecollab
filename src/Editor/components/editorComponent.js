@@ -107,7 +107,7 @@ const EditorComponent = ({ roomId, setClients }) => {
 
   //listening to language change
   useEffect(() => {
-    if (fileContent) {
+    if (isFile === "true") {
       languageOptions.filter((ele, i) => {
         if (ele.extension === fileContent.fileExtension) {
           setLang(ele);
