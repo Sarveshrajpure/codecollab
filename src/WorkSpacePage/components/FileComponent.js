@@ -3,11 +3,9 @@ import { getOneFile } from "../filesActions";
 import { add_file_content } from "../../Actions/fileActions";
 import { useDispatch } from "react-redux";
 import { v4 as uuidV4 } from "uuid";
-import { useNavigate } from "react-router-dom";
 
 const FileComponent = ({ fileId, fileName, fileExtension }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const openFileInEditor = async () => {
     try {
@@ -17,7 +15,7 @@ const FileComponent = ({ fileId, fileName, fileExtension }) => {
       dispatch(add_file_content(response[0]));
 
       let roomId = uuidV4();
-      navigate(`/editor/${roomId}/true`);
+      window.open(`/editor/${roomId}/true`, "_blank");
     } catch (error) {
       console.log(error);
     }
