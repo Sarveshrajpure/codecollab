@@ -35,26 +35,16 @@ const EditorActions = ({ clients, roomId, username }) => {
 
       <div className="flex justify-evenly flex-col-reverse md:flex-col md:h-56 md:justify-end ">
         <div className="">
-          <div className="text-m text-center py-1 ">--- Invite via ---</div>
-          <div className="flex justify-evenly text-2xl mx-4 my-2 md:mx-0     ">
+          <div className="text-m text-center py-1 ">--- Invite ---</div>
+          <div className="flex  text-2xl mx-4 my-2 md:mx-0     ">
             <button
               onClick={() => {
                 createWhatsAppLink(username, roomId);
               }}
-              className="btn  text-whatsApp-green bg-light-accent w-1/2 py-1 cursor-pointer rounded mx-2  
+              className="btn  text-whatsApp-green bg-light-accent w-full py-1 cursor-pointer rounded mx-2  
               tracking-wide transition-background-color transition-text ease-in duration-200  hover:bg-whatsApp-green hover:text-light-accent dark:hover:bg-whatsApp-green dark:hover:text-light-accent "
             >
               <i class="fa-brands fa-whatsapp"></i>
-            </button>
-
-            <button
-              onClick={() => {
-                createWhatsAppLink(username, roomId);
-              }}
-              className="btn text-gmail-yellow bg-light-accent w-1/2 py-1 cursor-pointer rounded mx-2
-              tracking-wide transition-background-color transition-text  ease-in duration-200  hover:bg-gmail-yellow hover:text-light-accent dark:hover:bg-gmail-yellow dark:hover:text-light-accent "
-            >
-              <i class="fa-solid fa-envelope"></i>
             </button>
           </div>
         </div>

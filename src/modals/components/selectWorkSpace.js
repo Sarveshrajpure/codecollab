@@ -47,7 +47,7 @@ const SelectWorkSpace = ({
         <div className="workSpaceNavDropDown flex justify-center ">
           <select
             id="language_Select"
-            className="align-middle p-0 m-0 outline-none  border-2 border-light-accent  text-light-call-sec text-sm md:text-lg rounded-lg focus:light-call-sec focus:border-light-call-sec focus:ring-light-call-sec block   dark:bg-dark-bg dark:border-dark-accent dark:placeholder-dark-call-sec dark:text-dark-call-sec dark:focus:ring-dark-accent dark:focus:border-dark-accent w-64 "
+            className="align-middle p-2 m-0 outline-none  border-2 border-light-accent  text-light-call-sec text-sm md:text-lg rounded-lg focus:light-call-sec focus:border-light-call-sec focus:ring-light-call-sec block   dark:bg-dark-bg dark:border-dark-accent dark:placeholder-dark-call-sec dark:text-dark-call-sec dark:focus:ring-dark-accent dark:focus:border-dark-accent w-64 "
             onChange={(e) => {
               setSelectWorkSpace(e.target.value);
               setFileOpen(true);
@@ -68,6 +68,15 @@ const SelectWorkSpace = ({
                 })
               : "Loading..."}
           </select>
+
+          {
+            <div
+              className="invalid-feedback  text-output-error text-xs px-2 pt-1"
+              style={workSpaceError ? { display: "block" } : {}}
+            >
+              {workSpaceError}
+            </div>
+          }
         </div>
       ) : (
         ""

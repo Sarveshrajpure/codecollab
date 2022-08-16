@@ -7,7 +7,12 @@ import { Oval } from "react-loader-spinner";
 import { createWorkSpaceSchema } from "../../validations/createWorkSpaceValidation";
 import { createWorkSpace } from "../../WorkSpacePage/workSpaceActions";
 
-const CreateWorkSpace = ({ setOpenCreate, setCreatedWorkSpace }) => {
+const CreateWorkSpace = ({
+  setOpenCreate,
+  setCreatedWorkSpace,
+  createOpenVal,
+  setModalOpen,
+}) => {
   const [workspaceName, setWorkSpaceName] = useState();
   const [loader, setLoader] = useState();
   const [workSpaceError, setWorkSpaceError] = useState();
@@ -40,7 +45,7 @@ const CreateWorkSpace = ({ setOpenCreate, setCreatedWorkSpace }) => {
           setLoader(false);
           toast.success(`${response.name} Created! `);
           setCreatedWorkSpace(response);
-          setOpenCreate(false);
+          createOpenVal ? setModalOpen(false) : setOpenCreate(false);
         }
       }
     } catch (err) {

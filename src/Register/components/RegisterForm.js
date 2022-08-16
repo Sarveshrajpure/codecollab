@@ -51,7 +51,7 @@ const RegisterForm = () => {
   return (
     <React.Fragment>
       <Nav />
-      <div className="registerFormWrapper  py-2">
+      <div className="registerFormWrapper relative py-2 z-20">
         <div className="registerFormBlock w-full lg:max-w-lg md:max-w-lg max-w-xs">
           <form
             className="registerForm  rounded px-14 pt-5 pb-8 mb-4"
