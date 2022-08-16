@@ -21,11 +21,11 @@ const CodeEditor = ({
   const [value, setValue] = useState("");
 
   useEffect(() => {
-    if (fileContent) {
+    if (isFile === "true") {
       setValue(atob(fileContent));
       setEditorCode(atob(fileContent));
     }
-  }, [fileContent, setEditorCode]);
+  }, []);
 
   useEffect(() => {
     if (socketRef.current) {
