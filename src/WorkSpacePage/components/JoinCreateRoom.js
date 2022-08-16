@@ -46,7 +46,6 @@ const JoinCreateRoom = () => {
       }
     } catch (err) {}
   };
-  console.log(roomId);
   return (
     <div className="joinCreateRoomWrapper ">
       <div className="joinCreateRoomLogo flex justify-center md:justify-start">

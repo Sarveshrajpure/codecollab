@@ -7,7 +7,12 @@ import { Oval } from "react-loader-spinner";
 import { createWorkSpaceSchema } from "../../validations/createWorkSpaceValidation";
 import { createWorkSpace } from "../../WorkSpacePage/workSpaceActions";
 
-const CreateWorkSpace = ({ setOpenCreate, setCreatedWorkSpace }) => {
+const CreateWorkSpace = ({
+  setOpenCreate,
+  setCreatedWorkSpace,
+  createOpenVal,
+  setModalOpen,
+}) => {
   const [workspaceName, setWorkSpaceName] = useState();
   const [loader, setLoader] = useState();
   const [workSpaceError, setWorkSpaceError] = useState();
@@ -40,7 +45,7 @@ const CreateWorkSpace = ({ setOpenCreate, setCreatedWorkSpace }) => {
           setLoader(false);
           toast.success(`${response.name} Created! `);
           setCreatedWorkSpace(response);
-          setOpenCreate(false);
+          createOpenVal ? setModalOpen(false) : setOpenCreate(false);
         }
       }
     } catch (err) {
@@ -52,11 +57,9 @@ const CreateWorkSpace = ({ setOpenCreate, setCreatedWorkSpace }) => {
       }
     }
   };
-  console.log(workspaceName);
 
   return (
     <div>
-   
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="createWorkSpaceFormInput ">
@@ -102,7 +105,10 @@ const CreateWorkSpace = ({ setOpenCreate, setCreatedWorkSpace }) => {
                 <button
                   type="submit"
                   id="createBtn"
-                  className="createWorkSpaceBtn tracking-wide transition-background-color ease-in duration-200 p-2 pr-8 pl-8 bg-light-call-sec rounded text-center text-md font-semibold text-light-accent cursor-pointer hover:bg-light-hover hover:text-light-call-sec dark:hover:bg-dark-accent"
+                  className="createWorkSpaceBtn tracking-wide transition-background-color ease-in
+                   duration-200 p-2 pr-8 pl-8 bg-light-call-sec rounded text-center text-md 
+                   font-semibold text-light-accent cursor-pointer hover:bg-light-hover
+                    hover:text-light-call-sec dark:hover:bg-dark-bg"
                 >
                   Create
                 </button>

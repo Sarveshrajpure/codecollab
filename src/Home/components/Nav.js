@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import mm_logo from "../../assests/cc_logo.png";
 import Toggle from "../../Utilities/toggle";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./Nav.css";
+import NavModal from "../../modals/components/navModal";
 
 const Nav = (isHomePage) => {
   const navigate = useNavigate();
+  const [openModal, setOpenModal] = useState(false);
 
   const user = useSelector((state) =>
-    state.User.user_verification.user.firstname
-      ? state.User.user_verification.user
-      : ""
+    state.User.loginInfo.user.firstName ? state.User.loginInfo.user : ""
   );
 
   function capitalizeFirstLetter(string) {
@@ -22,43 +22,51 @@ const Nav = (isHomePage) => {
 
   const navigateTo = async () => {
     if (user) {
-      navigate("/dashboard/dashboardhome");
+      setOpenModal((prev) => !prev);
     } else {
       navigate("/login");
     }
   };
+
   return (
-    <div className="navWrapper">
-      <div className="navBlock px-6 md:px-12 lg:px-4 py-1 flex justify-between items-center ">
-        <div
-          className=" flex  cursor-pointer "
-          onClick={() => {
-            navigate("/");
-          }}
-        >
+    <div className="navWrapper relative">
+      <div className="navBlock   px-6 md:px-12 lg:px-4  flex justify-between items-center ">
+        <div className=" md:w-5/6 flex  cursor-pointer ">
           <img
-            className=" w-2/6  md:w-2/3 lg:w-4/12 "
+            className=" w-1/4  md:w-20 "
             src={mm_logo}
             alt="logo"
+            onClick={() => {
+              navigate("/");
+            }}
           />
         </div>
-        {isHomePage.isHomePage === true ? (
-          <div
-            className="goToLoginBtn 
-         text-lg   md:text-xl  lg:text-xl "
-            onClick={() => {
-              navigateTo();
-            }}
-          >
-            {user ? capitalizeFirstLetter(user.firstname) : "Login"}
-          </div>
-        ) : (
-          ""
-        )}
+
+        <div
+          className="goToLoginBtn  px-4 py-1 mr-2 md:mr-0  select-none 
+         text-sm   md:text-md font-bold text-light-call-sec dark:text-dark-call-sec 
+          rounded transition-background-color duration-300  cursor-pointer  hover:bg-light-call-sec
+           dark:hover:bg-light-bg hover:text-light-bg  dark:hover:text-light-call-sec"
+          onClick={() => {
+            navigateTo();
+          }}
+        >
+          {user ? capitalizeFirstLetter(user.firstName) : "login"}
+        </div>
+
         <div>
           <Toggle />
         </div>
       </div>
+      {openModal ? (
+        <NavModal
+          closeModal={() => {
+            setOpenModal(false);
+          }}
+        />
+      ) : (
+        ""
+      )}
     </div>
   );
 };

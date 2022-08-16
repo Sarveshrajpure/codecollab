@@ -40,7 +40,7 @@ const SaveFileForm = ({ workSpace, editorCode, langEx, setModalOpen }) => {
         let response = await saveFile(sendData);
 
         if (response) {
-          console.log(response);
+          
           setLoader(false);
           toast.success(
             `${response.fileName}.${response.fileExtension} Created! `
@@ -59,17 +59,20 @@ const SaveFileForm = ({ workSpace, editorCode, langEx, setModalOpen }) => {
     }
   };
 
-  console.log(workSpace);
 
   return (
     <div>
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="createWorkSpaceFormInput ">
-            <div className="p-2">
+            <div className="">
+              <label className=" text-light-text-small">Enter File name:</label>
               <input
                 className="appearance-none transition-border-color duration-200  border 
-               rounded border-light-accent focus:border-light-call-sec  dark:border-dark-accent dark:bg-dark-bg dark:focus:border-white w-full py-2 px-3 text-light-text-small text-sm font-semibold focus:outline-none "
+               rounded border-light-accent focus:border-light-call-sec 
+                dark:border-dark-accent dark:bg-dark-bg
+                 dark:focus:border-white w-full py-2 px-3
+                  text-light-text-small text-sm font-semibold focus:outline-none "
                 id="nameWorkSpace"
                 name="nameWorkSpace"
                 type="text"
@@ -108,7 +111,10 @@ const SaveFileForm = ({ workSpace, editorCode, langEx, setModalOpen }) => {
                 <button
                   type="submit"
                   id="createBtn"
-                  className="createWorkSpaceBtn tracking-wide transition-background-color ease-in duration-200 p-2 pr-8 pl-8 bg-light-call-sec rounded text-center text-md font-semibold text-light-accent cursor-pointer hover:bg-light-hover hover:text-light-call-sec dark:hover:bg-dark-accent"
+                  className="createWorkSpaceBtn tracking-wide transition-background-color ease-in 
+                  duration-200 p-2 pr-8 pl-8 bg-light-call-sec rounded text-center text-md 
+                  font-semibold text-light-accent cursor-pointer hover:bg-light-hover
+                   hover:text-light-call-sec dark:hover:bg-dark-bg"
                 >
                   Create
                 </button>

@@ -11,6 +11,7 @@ import ACTIONS from "../../Utilities/userSocketActions";
 import toast from "react-hot-toast";
 import { initSocket } from "../../Utilities/socket";
 import { useNavigate, useParams } from "react-router-dom";
+import { updateFile } from "../../WorkSpacePage/filesActions";
 import Modal from "../../modals";
 
 const EditorComponent = ({ roomId, setClients }) => {
@@ -37,8 +38,11 @@ const EditorComponent = ({ roomId, setClients }) => {
           extension: "js",
         }
   );
+  const [fileUpdated, setFileUpdated] = useState();
+  const [fileError, setFileError] = useState();
   const [editorCode, setEditorCode] = useState();
   const [loader, setLoader] = useState(false);
+  const [fileLoader, setFileLoader] = useState(false);
   const [result, setResult] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [outputColor, setOutputColor] = useState("light-hover");
@@ -51,7 +55,6 @@ const EditorComponent = ({ roomId, setClients }) => {
       socketRef.current.on("connect_failed", (err) => handleErrors(err));
 
       function handleErrors(e) {
-        console.log("socket error", e);
         toast.error("Socket connection failed, try again later.");
         navigate("/workspaces");
       }
@@ -125,7 +128,6 @@ const EditorComponent = ({ roomId, setClients }) => {
       // Listening to language change event
       socketRef.current.on(ACTIONS.LANGUAGE_CHANGE, ({ lang, userName }) => {
         if (lang !== null) {
-          console.log(lang);
           langRef.current = lang;
           setLang(languageOptions[langRef.current]);
 
@@ -167,7 +169,6 @@ const EditorComponent = ({ roomId, setClients }) => {
 
   const handleCompile = async () => {
     setLoader(true);
-    console.log(lang.name);
     if (editorCode) {
       let response = await CompileAndRun({
         LangId: lang.id,
@@ -176,7 +177,6 @@ const EditorComponent = ({ roomId, setClients }) => {
       });
 
       if (response) {
-        console.log(response);
         let statusId = response?.status?.id;
         if (statusId === 6) {
           setResult({
@@ -293,6 +293,37 @@ const EditorComponent = ({ roomId, setClients }) => {
     }
   };
 
+  const handleUpdate = async () => {
+    if (editorCode) {
+      try {
+        setFileLoader(true);
+
+        let sendData = {
+          documentId: fileContent._id,
+          fileContent: editorCode,
+        };
+
+        let response = await updateFile(sendData);
+
+        if (response) {
+          console.log(response);
+          setFileLoader(false);
+          toast.success(
+            `${fileContent.fileName}.${fileContent.fileExtension} Updated! `
+          );
+          setFileUpdated(response);
+        }
+      } catch (err) {
+        setFileLoader(false);
+        if (err.response) {
+          setFileError(err.response.data.message);
+        } else {
+          setFileError(err.message);
+        }
+      }
+    }
+  };
+
   return (
     <div className="shadow dark:shadow-dark-accent rounded ml-1">
       <div className="flex justify-between rounded-t p-1  bg-light-accent dark:bg-dark-accent">
@@ -349,18 +380,28 @@ const EditorComponent = ({ roomId, setClients }) => {
             ""
           )}
         </div>
-        <div>
-          <button
-            className=" tracking-wide transition-background-color ease-in duration-200 p-1 px-4
+        <div className=" h-8 w-20 md:h-9 md:w-24">
+          {fileLoader ? (
+            <div className="flex justify-center">
+              <Oval color="#5063F0" height={25} width={25} />
+            </div>
+          ) : (
+            <button
+              className=" tracking-wide transition-background-color ease-in duration-200 px-2
               bg-light-call-sec rounded text-center text-sm md:text-lg font-semibold text-light-accent 
               cursor-pointer hover:bg-light-hover hover:text-light-call-sec
-              "
-            onClick={() => {
-              editorCode ? handleSave() : toast.error(`Nothing to Save `);
-            }}
-          >
-            Save
-          </button>
+              dark:hover:bg-dark-bg w-full h-full"
+              onClick={() => {
+                editorCode
+                  ? isFile === "true"
+                    ? handleUpdate()
+                    : handleSave()
+                  : toast.error(`Nothing to Save `);
+              }}
+            >
+              Save
+            </button>
+          )}
         </div>
       </div>
       {modalOpen ? (
@@ -370,6 +411,7 @@ const EditorComponent = ({ roomId, setClients }) => {
           setModalOpen={(val) => {
             setModalOpen(val);
           }}
+          createOpenVal={false}
         />
       ) : (
         ""

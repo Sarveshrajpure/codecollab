@@ -42,3 +42,32 @@ export const saveFile = async (value) => {
   );
   return file.data;
 };
+
+export const renameFile = async (value) => {
+  let response = await axiosInstance.put(
+    "/document/updatedocname",
+    value,
+    getAuthHeader()
+  );
+  return response.data;
+};
+
+export const deleteFile = async (value) => {
+
+  let response = await axiosInstance.post(
+    "/document/delete",
+    value,
+    getAuthHeader()
+  );
+  return response.data;
+};
+
+export const updateFile = async (value) => {
+  console.log(value);
+  let response = await axiosInstance.put(
+    "/document/updatecontent",
+    value,
+    getAuthHeader()
+  );
+  return response.data;
+};
