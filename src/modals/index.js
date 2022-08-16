@@ -7,7 +7,7 @@ const Modal = ({ editorCode, langEx, setModalOpen }) => {
   const [createdWorkspace, setCreatedWorkSpace] = useState("");
 
   return (
-    <div className="absolute z-20 pt-2 pb-6 px-4 inset-1/4 mx-auto  w-96 h-fit shadow-lg rounded-md bg-white">
+    <div className="absolute z-20 pt-2 pb-6 px-4 left-4 top-60 md:inset-1/4 mx-auto  w-96 h-fit shadow-lg rounded-md bg-white">
       <div className="">
         <h3 className="tracking-wide pb-6 pl-0   text-base  text-light-call-sec font-semibold md:text-md dark:text-white ">
           Save Document
