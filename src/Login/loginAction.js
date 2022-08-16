@@ -7,7 +7,6 @@ import {
   removeTokenCookie,
 } from "../Utilities/authTools.js";
 
-
 export const LoginUser = async (values) => {
   const loginInfo = await axiosInstance.post("/auth/signin", {
     email: values.email,
@@ -18,19 +17,16 @@ export const LoginUser = async (values) => {
 };
 
 export const userIsAuth = async () => {
-  console.log("in user auth");
   if (!getTokenCookie()) {
     return false;
   } else {
     const user = await axiosInstance.get("/auth/isauth", getAuthHeader());
-    console.log("user exists");
 
     return user;
   }
 };
 
 export const userSignOut = async () => {
-  console.log("in delete cookie");
   await removeTokenCookie();
   return true;
 };

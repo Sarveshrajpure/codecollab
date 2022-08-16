@@ -10,7 +10,7 @@ import {
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
 export const createWorkSpace = async (values) => {
-  console.log(values);
+
   const result = await axiosInstance.post(
     "/workspace/create",
     values,

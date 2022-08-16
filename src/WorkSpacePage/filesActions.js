@@ -53,7 +53,7 @@ export const renameFile = async (value) => {
 };
 
 export const deleteFile = async (value) => {
-  console.log(value);
+
   let response = await axiosInstance.post(
     "/document/delete",
     value,

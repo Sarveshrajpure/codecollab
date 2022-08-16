@@ -51,7 +51,6 @@ const EditorComponent = ({ roomId, setClients }) => {
       socketRef.current.on("connect_failed", (err) => handleErrors(err));
 
       function handleErrors(e) {
-        console.log("socket error", e);
         toast.error("Socket connection failed, try again later.");
         navigate("/workspaces");
       }
@@ -125,7 +124,6 @@ const EditorComponent = ({ roomId, setClients }) => {
       // Listening to language change event
       socketRef.current.on(ACTIONS.LANGUAGE_CHANGE, ({ lang, userName }) => {
         if (lang !== null) {
-          console.log(lang);
           langRef.current = lang;
           setLang(languageOptions[langRef.current]);
 
@@ -167,7 +165,6 @@ const EditorComponent = ({ roomId, setClients }) => {
 
   const handleCompile = async () => {
     setLoader(true);
-    console.log(lang.name);
     if (editorCode) {
       let response = await CompileAndRun({
         LangId: lang.id,
@@ -176,7 +173,6 @@ const EditorComponent = ({ roomId, setClients }) => {
       });
 
       if (response) {
-        console.log(response);
         let statusId = response?.status?.id;
         if (statusId === 6) {
           setResult({

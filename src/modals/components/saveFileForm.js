@@ -40,7 +40,7 @@ const SaveFileForm = ({ workSpace, editorCode, langEx, setModalOpen }) => {
         let response = await saveFile(sendData);
 
         if (response) {
-          console.log(response);
+          
           setLoader(false);
           toast.success(
             `${response.fileName}.${response.fileExtension} Created! `
@@ -59,7 +59,6 @@ const SaveFileForm = ({ workSpace, editorCode, langEx, setModalOpen }) => {
     }
   };
 
-  console.log(workSpace);
 
   return (
     <div>

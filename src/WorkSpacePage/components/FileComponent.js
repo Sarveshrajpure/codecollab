@@ -21,10 +21,6 @@ const FileComponent = ({ fileId, fileName, fileExtension, updateFiles }) => {
   const [fileOperationsModal, setFileOperationsModal] = useState(false);
   const [fileOperation, setFileOperation] = useState(null);
 
-  const handleCloseOptionsModal = () => {
-    setOptionsModal(false);
-  };
-
   useEffect(() => {
     let clickOutsidehandler = (event) => {
       if (!ref.current.contains(event.target)) {

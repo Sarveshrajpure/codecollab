@@ -28,7 +28,6 @@ const Nav = (isHomePage) => {
     }
   };
 
-  console.log(user.firstName);
   return (
     <div className="navWrapper">
       <div className="navBlock   px-6 md:px-12 lg:px-4  flex justify-between items-center ">
@@ -38,7 +37,7 @@ const Nav = (isHomePage) => {
             navigate("/");
           }}
         >
-          <img className=" w-1/4  md:w-20 " src={mm_logo} alt="logo" pb-1 />
+          <img className=" w-1/4  md:w-20 " src={mm_logo} alt="logo" />
         </div>
 
         <div

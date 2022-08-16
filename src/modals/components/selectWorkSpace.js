@@ -39,7 +39,7 @@ const SelectWorkSpace = ({
     getWorkSpaces();
   }, [user._id]);
 
-  console.log(selectWorkspace);
+
 
   return (
     <div className="">

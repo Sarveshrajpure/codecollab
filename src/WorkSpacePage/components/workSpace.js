@@ -36,7 +36,6 @@ const WorkSpace = () => {
 
     getWorkspaces();
   }, []);
-  console.log(selectedWorkspace);
   return (
     <div className="workspaceWrapper ">
       <div className="workSpaceNavWrapper flex pt-5 pb-5 px-4 md:px-24 md:pt-8 md:pb-5">
@@ -53,7 +52,12 @@ const WorkSpace = () => {
                   dark:text-dark-call-sec  dark:focus:border-dark-accent"
               defaultValue={selectedWorkspace}
               onChange={(e) => {
-                setSelectedWorkspace(e.target.value);
+                if (e.target.value === "recent") {
+                  setSelectedWorkspace("recent");
+                } else {
+                  let index = parseInt(e.target.value);
+                  setSelectedWorkspace(workspaces[index]);
+                }
               }}
             >
               <option value="default" disabled hidden>
@@ -62,7 +66,7 @@ const WorkSpace = () => {
               <option value={"recent"}>Recent files</option>
               {workspaces.map((ele, index) => {
                 return (
-                  <option value={ele._id} key={index}>
+                  <option value={index} key={index}>
                     {ele.name}
                   </option>
                 );

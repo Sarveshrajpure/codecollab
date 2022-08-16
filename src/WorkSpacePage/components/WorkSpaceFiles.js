@@ -25,7 +25,7 @@ const WorkSpaceFiles = ({ workspace, userId }) => {
           setFiles(response);
           setSpinner(false);
         } else {
-          let workspaceId = { workspaceId: workspace };
+          let workspaceId = { workspaceId: workspace._id };
           setSpinner(true);
           let response = await getFilesByWorkspaceId(workspaceId);
           setFiles(response);
@@ -37,7 +37,7 @@ const WorkSpaceFiles = ({ workspace, userId }) => {
     }
 
     getFiles();
-  }, [workspace, updateFiles]);
+  }, [workspace._id, updateFiles]);
 
   return (
     <div className="workspaceFilesWrapper mt-10 md:mt-0 ">
@@ -58,7 +58,7 @@ const WorkSpaceFiles = ({ workspace, userId }) => {
             <h3 className="text-left font-semibold tracking-wide pl-2 pt-2 text-lg md:text-2xl text-light-call-sec dark:text-white">
               {workspace === "default" || workspace === "recent"
                 ? "Recent Files"
-                : ""}
+                : workspace.name}
             </h3>
           </div>
           <div className="h-96">

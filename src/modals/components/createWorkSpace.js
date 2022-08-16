@@ -52,11 +52,9 @@ const CreateWorkSpace = ({ setOpenCreate, setCreatedWorkSpace }) => {
       }
     }
   };
-  console.log(workspaceName);
 
   return (
     <div>
-   
       <div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="createWorkSpaceFormInput ">

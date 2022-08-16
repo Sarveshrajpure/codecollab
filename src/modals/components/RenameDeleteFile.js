@@ -53,7 +53,6 @@ const RenameDeleteFile = ({
     });
   };
 
-  console.log(formState);
 
   async function submitForm(e) {
     e.preventDefault();
@@ -93,13 +92,12 @@ const RenameDeleteFile = ({
       } else {
         setError(error.message);
       }
-      console.log(error);
     }
   }
 
   async function submitDeleteForm(e) {
     e.preventDefault();
-    console.log("in delete");
+
     try {
       setSpinner(true);
       setError("");
@@ -107,12 +105,12 @@ const RenameDeleteFile = ({
       const validData = await deleteFileSchema.validate({
         documentId: fileDetails.documentId,
       });
-      console.log(validData);
+     
       if (validData) {
         let dataToBeSent = { documentId: validData.documentId };
 
         let response = await deleteFile(dataToBeSent);
-        console.log(response);
+      
         if (response) {
           setSpinner(false);
           toast.success("File deleted!");

@@ -15,12 +15,9 @@ const PrivateRoute = () => {
         /* Update effect logic to track correct state */
         const isUserLogged = await userIsAuth();
         if (isUserLogged) {
-          console.log("cookie found");
-          console.log(isUserLogged);
           dispatch(verify_user({ user: isUserLogged.data, auth: true }));
           setState(isUserLogged ? "loggedin" : "redirect");
         } else {
-          console.log("cookie not found");
           dispatch(
             verify_user({
               user: {
