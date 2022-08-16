@@ -105,7 +105,10 @@ const CreateWorkSpace = ({
                 <button
                   type="submit"
                   id="createBtn"
-                  className="createWorkSpaceBtn tracking-wide transition-background-color ease-in duration-200 p-2 pr-8 pl-8 bg-light-call-sec rounded text-center text-md font-semibold text-light-accent cursor-pointer hover:bg-light-hover hover:text-light-call-sec dark:hover:bg-dark-accent"
+                  className="createWorkSpaceBtn tracking-wide transition-background-color ease-in
+                   duration-200 p-2 pr-8 pl-8 bg-light-call-sec rounded text-center text-md 
+                   font-semibold text-light-accent cursor-pointer hover:bg-light-hover
+                    hover:text-light-call-sec dark:hover:bg-dark-bg"
                 >
                   Create
                 </button>

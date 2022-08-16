@@ -390,8 +390,7 @@ const EditorComponent = ({ roomId, setClients }) => {
               className=" tracking-wide transition-background-color ease-in duration-200 px-2
               bg-light-call-sec rounded text-center text-sm md:text-lg font-semibold text-light-accent 
               cursor-pointer hover:bg-light-hover hover:text-light-call-sec
-           w-full h-full
-              "
+              dark:hover:bg-dark-bg w-full h-full"
               onClick={() => {
                 editorCode
                   ? isFile === "true"
