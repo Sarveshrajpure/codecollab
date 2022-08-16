@@ -1,17 +1,9 @@
 .goToLoginBtn {
-  width: max-content;
-  height: max-content;
-  cursor: pointer;
-  transition: all 200ms ease-in;
-  border-radius: 2rem;
-  padding: 0.3rem 1rem 0.5rem 1rem;
-  color: #ee6c4d;
-  font-weight: 600;
+  
 }
 
 .goToLoginBtn:hover {
-  background-color: #ee6c4d;
-  color: #ffff;
+ 
 }
 
 .logoTxt {

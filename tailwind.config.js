@@ -24,6 +24,7 @@ module.exports = {
       "grey-start": "#414345",
       "light-grey-start": "#7D7D7D",
       "light-grey-end": "#696969",
+      "modal-bg": "#c8c8c8",
     },
 
     extend: {},

@@ -12,6 +12,7 @@ const WorkSpaceFiles = ({ workspace, userId }) => {
 
   const [files, setFiles] = useState([]);
   const [spinner, setSpinner] = useState(false);
+  const [updateFiles, setUpdateFiles] = useState(false);
   useEffect(() => {
     async function getFiles() {
       try {
@@ -36,7 +37,7 @@ const WorkSpaceFiles = ({ workspace, userId }) => {
     }
 
     getFiles();
-  }, [workspace]);
+  }, [workspace, updateFiles]);
 
   return (
     <div className="workspaceFilesWrapper mt-10 md:mt-0 ">
@@ -55,7 +56,6 @@ const WorkSpaceFiles = ({ workspace, userId }) => {
               ></img>
             </div>
             <h3 className="text-left font-semibold tracking-wide pl-2 pt-2 text-lg md:text-2xl text-light-call-sec dark:text-white">
-              {" "}
               {workspace === "default" || workspace === "recent"
                 ? "Recent Files"
                 : ""}
@@ -71,6 +71,9 @@ const WorkSpaceFiles = ({ workspace, userId }) => {
                       fileName={ele.fileName}
                       fileExtension={ele.fileExtension}
                       fileId={ele._id}
+                      updateFiles={() => {
+                        setUpdateFiles((prev) => !prev);
+                      }}
                     />
                   );
                 })}

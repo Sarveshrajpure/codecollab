@@ -62,7 +62,7 @@ const WorkSpace = () => {
               <option value={"recent"}>Recent files</option>
               {workspaces.map((ele, index) => {
                 return (
-                  <option value={ele._id} key={index}>  
+                  <option value={ele._id} key={index}>
                     {ele.name}
                   </option>
                 );
