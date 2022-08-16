@@ -29,15 +29,17 @@ const Nav = (isHomePage) => {
   };
 
   return (
-    <div className="navWrapper">
+    <div className="navWrapper relative">
       <div className="navBlock   px-6 md:px-12 lg:px-4  flex justify-between items-center ">
-        <div
-          className=" md:w-5/6 flex  cursor-pointer "
-          onClick={() => {
-            navigate("/");
-          }}
-        >
-          <img className=" w-1/4  md:w-20 " src={mm_logo} alt="logo" />
+        <div className=" md:w-5/6 flex  cursor-pointer ">
+          <img
+            className=" w-1/4  md:w-20 "
+            src={mm_logo}
+            alt="logo"
+            onClick={() => {
+              navigate("/");
+            }}
+          />
         </div>
 
         <div
@@ -56,7 +58,15 @@ const Nav = (isHomePage) => {
           <Toggle />
         </div>
       </div>
-      {openModal ? <NavModal /> : ""}
+      {openModal ? (
+        <NavModal
+          closeModal={() => {
+            setOpenModal(false);
+          }}
+        />
+      ) : (
+        ""
+      )}
     </div>
   );
 };

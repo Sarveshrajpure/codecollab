@@ -1,0 +1,35 @@
+.navModalWrapper{
+    right:6rem;
+    top:3.5rem
+}
+
+
+.navModalWrapper:after, .arrow_box:before {
+	bottom: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: "";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.navModalWrapper:after {
+    border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: #F5F5F5;
+	border-width: 20px;
+	margin-left: -20px
+}
+.navModalWrapper:before {
+	border-color: rgba(194, 225, 245, 0);
+	border-bottom-color: #F5F5F5;
+	border-width: 26px;
+	margin-left: -26p
+}
+
+@media only screen and (max-width: 600px) {
+    .navModalWrapper{
+        right:2.2rem
+    }
+  }
