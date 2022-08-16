@@ -1,5 +1,4 @@
 import React from "react";
-import "./Footer.css";
 import mm_logo from "../../assests/cc_logo.png";
 
 const Footer = () => {
