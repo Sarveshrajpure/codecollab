@@ -50,7 +50,7 @@ const LoginForm = () => {
   return (
     <React.Fragment>
       <Nav />
-      <div className="loginFormWrapper">
+      <div className="loginFormWrapper relative py-2 z-20">
         <div className="loginFormBlock w-full lg:max-w-lg md:max-w-lg max-w-xs">
           <form
             className="loginForm  px-10 pb-8 mb-4"

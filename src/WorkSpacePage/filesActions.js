@@ -61,3 +61,13 @@ export const deleteFile = async (value) => {
   );
   return response.data;
 };
+
+export const updateFile = async (value) => {
+  console.log(value);
+  let response = await axiosInstance.put(
+    "/document/updatecontent",
+    value,
+    getAuthHeader()
+  );
+  return response.data;
+};
