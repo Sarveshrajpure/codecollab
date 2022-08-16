@@ -47,14 +47,14 @@ const Hero1 = () => {
                 <div className="flex justify-between py-1 px-2 text-sm ">
                   <div className="flex ">
                     <div className="">
-                      <i class="fa-solid fa-gear"></i>
+                      <i className="fa-solid fa-gear"></i>
                     </div>
                     <div className="px-1 font-bold text-light-accent dark:text-light-grey-start">
                       JavaScript
                     </div>
                   </div>
                   <div>
-                    <i class="fa-solid fa-chevron-down"></i>
+                    <i className="fa-solid fa-chevron-down"></i>
                   </div>
                 </div>
                 <div className="editorBoxContent text-xs pt-1 pl-2 font-semibold text-light-call-sec dark:text-light-text-small">
@@ -68,14 +68,14 @@ const Hero1 = () => {
                 <div className="flex justify-between py-1 px-2 text-sm ">
                   <div className="flex ">
                     <div className="">
-                      <i class="fa-solid fa-gear"></i>
+                      <i className="fa-solid fa-gear"></i>
                     </div>
                     <div className="px-1 font-bold text-light-accent dark:text-light-grey-start">
                       Python
                     </div>
                   </div>
                   <div>
-                    <i class="fa-solid fa-chevron-down"></i>
+                    <i className="fa-solid fa-chevron-down"></i>
                   </div>
                 </div>
                 <div className="editorBoxContent  text-sm pt-2 pl-2 font-semibold text-light-call-sec dark:text-light-text-small">
@@ -88,14 +88,14 @@ const Hero1 = () => {
                 <div className="flex justify-between py-1 px-2 text-sm ">
                   <div className="flex ">
                     <div className="">
-                      <i class="fa-solid fa-gear"></i>
+                      <i className="fa-solid fa-gear"></i>
                     </div>
                     <div className="px-1 font-bold text-light-accent dark:text-light-grey-start">
                       JavaScript
                     </div>
                   </div>
                   <div>
-                    <i class="fa-solid fa-chevron-down"></i>
+                    <i className="fa-solid fa-chevron-down"></i>
                   </div>
                 </div>{" "}
                 <div className="editorBoxContent  text-sm pt-2 pl-2 font-semibold text-light-call-sec dark:text-light-text-small">

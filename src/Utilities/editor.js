@@ -35,7 +35,6 @@ const CodeEditor = ({
           setValue(code);
           setEditorCode(code);
         }
-        console.log("receieving", code);
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -110,13 +110,14 @@ const EditorComponent = ({ roomId, setClients }) => {
     if (isFile === "true") {
       languageOptions.filter((ele, i) => {
         if (ele.extension === fileContent.fileExtension) {
-          setLang(ele);
+          langRef.current = i;
+          setLang(languageOptions[langRef.current]);
           document.getElementById("language_Select").options[i].selected =
             "selected";
         }
       });
     }
-  }, [fileContent, lang]);
+  }, []);
 
   //listening to language change
   useEffect(() => {
@@ -124,18 +125,21 @@ const EditorComponent = ({ roomId, setClients }) => {
       // Listening to language change event
       socketRef.current.on(ACTIONS.LANGUAGE_CHANGE, ({ lang, userName }) => {
         if (lang !== null) {
+          console.log(lang);
           langRef.current = lang;
           setLang(languageOptions[langRef.current]);
 
           document.querySelector("#language_Select").value = lang;
 
           if (userName !== username.firstName) {
-            toast.success(
-              `${userName} changed language to ${
-                languageOptions[langRef.current].value
-              }.`,
-              { icon: "👨‍💻" }
-            );
+            if (userName) {
+              toast.success(
+                `${userName} changed language to ${
+                  languageOptions[langRef.current].value
+                }.`,
+                { icon: "👨‍💻" }
+              );
+            }
           }
         }
       });
