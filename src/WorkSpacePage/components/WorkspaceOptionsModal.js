@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import RenameDeleteFile from "../../modals/components/RenameDeleteFile";
 
-const WorkspaceOptionsModal = ({ closeOptionsModal, workspace }) => {
+const WorkspaceOptionsModal = ({
+  closeOptionsModal,
+  workspace,
+  updateWorkspaces,
+}) => {
   const [deleteModal, setDeleteModal] = useState("");
   return (
     <>
@@ -25,12 +29,17 @@ text-light-call-sec dark:text-light-hover select-none"
       {deleteModal ? (
         <RenameDeleteFile
           fileOperation={"delete"}
-          fileDetails={workspace._id}
           workspace={workspace}
           closeModal={() => {
             setDeleteModal(false);
           }}
           isDeleteWorkspace={true}
+          updateWorkspaces={() => {
+            updateWorkspaces();
+          }}
+          closeOptionsModal={() => {
+            closeOptionsModal();
+          }}
         />
       ) : (
         ""

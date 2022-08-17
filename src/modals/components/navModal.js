@@ -33,7 +33,7 @@ const NavModal = ({ closeModal }) => {
   };
   return (
     <div
-      className="navModalWrapper absolute bg-light-accent  shadow-xl z-100 p-4 rounded  "
+      className="navModalWrapper absolute bg-light-hover  shadow-xl z-50 p-4 rounded  "
       ref={ref}
     >
       <div className="NnavModalOptions ">
@@ -47,7 +47,7 @@ const NavModal = ({ closeModal }) => {
           Workspace
         </div>
         <div
-          className="p-2 cursor-pointer font-medium text-center text-light-call-sec transition-background-color duration-200
+          className="p-2 my-1 cursor-pointer font-medium text-center text-light-call-sec transition-background-color duration-200
          hover:bg-light-call-sec hover:text-light-bg dark:hover:bg-dark-accent   rounded"
           onClick={() => {
             handleLogout();

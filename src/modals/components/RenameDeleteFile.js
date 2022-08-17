@@ -21,6 +21,8 @@ const RenameDeleteFile = ({
   updateFiles,
   isDeleteWorkspace,
   workspace,
+  updateWorkspaces,
+  closeOptionsModal,
 }) => {
   const ref = useRef(null);
   const [formState, setFormState] = useState(fileDetails);
@@ -118,7 +120,7 @@ const RenameDeleteFile = ({
           documentId: fileDetails.documentId,
         });
       }
-
+      console.log(validData);
       if (validData) {
         if (isDeleteWorkspace) {
           let dataToBeSent = { workspaceId: validData.workspaceId };
@@ -127,6 +129,9 @@ const RenameDeleteFile = ({
           if (response) {
             setSpinner(false);
             toast.success("Workspace deleted!");
+            updateWorkspaces();
+            closeOptionsModal();
+            window.location.reload();
             closeModal();
           }
         } else {
@@ -153,7 +158,7 @@ const RenameDeleteFile = ({
       }
     }
   }
-  console.log(workspace._id);
+
   return (
     <div
       className="RenameDeleteFileModalBackground fixed z-40 h-screen w-screen top-0 left-0 

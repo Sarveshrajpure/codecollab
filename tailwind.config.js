@@ -10,7 +10,7 @@ module.exports = {
       "dark-call-sec": "#FFFFFF",
       "dark-accent": "#24242B",
       "dark-bg": "#0D0D0D",
-      "light-accent": "#F5F5F5",
+      "light-accent": "#c9c7c7",
       "light-bg": "#FFFFFF",
       "light-call-sec": "#5063F0",
       "light-hover": "#c9c7c7",
