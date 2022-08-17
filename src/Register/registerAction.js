@@ -7,9 +7,8 @@ export const RegisterUser = async (values) => {
   const registerInfo = await axiosInstance.post("/auth/register", {
     email: values.email,
     password: values.password,
-    firstname: values.firstname,
-    lastname: values.lastname,
-    businessname: values.businessname,
+    firstName: values.firstname,
+    lastName: values.lastname,
     phone: values.phone,
   });
 

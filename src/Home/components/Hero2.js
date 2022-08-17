@@ -38,8 +38,8 @@ const Hero2 = () => {
           <img src={lines_2} alt="" className="w-full  top-1 z-0" />
         </div>
       </div>
-      <div className="md:w-2/5 absolute  top-2/3  -left-20">
-        <img src={lines_3} alt="" className="w-full" />
+      <div className="md:w-2/5 absolute  md:top-2/3  -left-20">
+        <img src={lines_3} alt="" className="w-full -mt-96 md:mt-0" />
       </div>
     </div>
   );

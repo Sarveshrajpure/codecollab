@@ -221,13 +221,13 @@ const RegisterForm = () => {
               }
             </div>
             <div
-              className="invalid-feedback text-center text-red-500 text-xs px-2 py-2  pt-1 "
+              className="invalid-feedback text-center text-output-error text-xs px-2 py-2  pt-1 "
               style={registerError ? { display: "block" } : {}}
             >
               {registerError ? registerError : null}
             </div>
 
-            {false ? (
+            {loader ? (
               <div className=" flex justify-center w-full p-2">
                 <Oval color="#5063F0" height={30} width={30} />
               </div>
