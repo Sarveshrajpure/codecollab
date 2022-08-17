@@ -8,7 +8,12 @@ import FileComponent from "./FileComponent";
 import { Scrollbars } from "react-custom-scrollbars-2";
 import WorkspaceOptionsModal from "./WorkspaceOptionsModal";
 
-const WorkSpaceFiles = ({ workspace, userId }) => {
+const WorkSpaceFiles = ({
+  workspace,
+  userId,
+  updateWorkSpaces,
+  updateWorkSpacesState,
+}) => {
   const ref = useRef(null);
   const { theme } = React.useContext(ThemeContext);
 
@@ -104,6 +109,9 @@ const WorkSpaceFiles = ({ workspace, userId }) => {
                   workspace={workspace}
                   closeOptionsModal={() => {
                     setWorkspaceModal(false);
+                  }}
+                  updateWorkspaces={() => {
+                    updateWorkSpaces();
                   }}
                 />
               ) : (

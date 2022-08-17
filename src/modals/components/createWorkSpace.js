@@ -12,6 +12,7 @@ const CreateWorkSpace = ({
   setCreatedWorkSpace,
   createOpenVal,
   setModalOpen,
+  updateWorkSpaces,
 }) => {
   const [workspaceName, setWorkSpaceName] = useState();
   const [loader, setLoader] = useState();
@@ -45,7 +46,13 @@ const CreateWorkSpace = ({
           setLoader(false);
           toast.success(`${response.name} Created! `);
           setCreatedWorkSpace(response);
-          createOpenVal ? setModalOpen(false) : setOpenCreate(false);
+
+          if (createOpenVal) {
+            setModalOpen(false);
+            updateWorkSpaces();
+          } else {
+            setOpenCreate(false);
+          }
         }
       }
     } catch (err) {

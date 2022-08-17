@@ -13,6 +13,7 @@ import "./workSpace.css";
 const WorkSpace = () => {
   const { theme } = React.useContext(ThemeContext);
   const [workspaces, setWorkspaces] = useState([]);
+  const [updateWorkspaces, setupdateWorkspaces] = useState(false);
   const [openModal, setOpenModal] = useState("");
   const [selectedWorkspace, setSelectedWorkspace] = useState("default");
   const [workSpacesError, setWorkSpaceError] = useState("");
@@ -37,7 +38,7 @@ const WorkSpace = () => {
     }
 
     getWorkspaces();
-  }, []);
+  }, [updateWorkspaces]);
   return (
     <div className="workspaceWrapper ">
       <div className="workSpaceNavWrapper flex pt-5 pb-5 px-4 md:px-24 md:pt-8 md:pb-5">
@@ -108,6 +109,9 @@ const WorkSpace = () => {
                 setOpenModal(val);
               }}
               createOpenVal={true}
+              updateWorkSpaces={() => {
+                setupdateWorkspaces((prev) => !prev);
+              }}
             />
           ) : (
             ""
@@ -118,6 +122,9 @@ const WorkSpace = () => {
         <div className="md:w-4/6">
           <WorkSpaceFiles
             workspace={selectedWorkspace}
+            updateWorkSpaces={() => {
+              setupdateWorkspaces((prev) => !prev);
+            }}
             userId={user ? user._id : ""}
           />
         </div>

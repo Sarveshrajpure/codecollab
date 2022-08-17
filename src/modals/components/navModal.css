@@ -17,13 +17,13 @@
 
 .navModalWrapper:after {
     border-color: rgba(136, 183, 213, 0);
-	border-bottom-color: #F5F5F5;
+	border-bottom-color: #c9c7c7;
 	border-width: 20px;
 	margin-left: -20px
 }
 .navModalWrapper:before {
 	border-color: rgba(194, 225, 245, 0);
-	border-bottom-color: #F5F5F5;
+	border-bottom-color: #c9c7c7;
 	border-width: 26px;
 	margin-left: -26p
 }

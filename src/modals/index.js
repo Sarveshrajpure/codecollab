@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import SelectWorkSpace from "./components/selectWorkSpace";
 import CreateWorkSpace from "./components/createWorkSpace";
 
-const Modal = ({ editorCode, langEx, setModalOpen, createOpenVal }) => {
+const Modal = ({
+  editorCode,
+  langEx,
+  setModalOpen,
+  createOpenVal,
+  updateWorkSpaces,
+}) => {
   const [createOpen, setCreateOpen] = useState(createOpenVal);
   const [createdWorkspace, setCreatedWorkSpace] = useState("");
 
@@ -56,6 +62,7 @@ const Modal = ({ editorCode, langEx, setModalOpen, createOpenVal }) => {
           setModalOpen={(val) => {
             setModalOpen(val);
           }}
+          updateWorkSpaces={() => updateWorkSpaces()}
         />
       )}
     </div>
