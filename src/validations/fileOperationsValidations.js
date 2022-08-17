@@ -16,3 +16,7 @@ export const renameFileSchema = yup.object().shape({
 export const deleteFileSchema = yup.object().shape({
   documentId: yup.string().required("file ID id required"),
 });
+
+export const deleteWorkspaceSchema = yup.object().shape({
+  workspaceId: yup.string().required("workspace ID is required"),
+});
