@@ -6,7 +6,7 @@ const Member = ({ fullName, firstName }) => {
     <div className="memberWrapper items-center  flex flex-col w-20   ">
       <Avatar name={firstName} size={50} round="14px" />
       <span className="userNameBlock text-xs text-center font-semibold pt-1 dark:text-light-accent">
-        {fullName}
+        {firstName}
       </span>
     </div>
   );
