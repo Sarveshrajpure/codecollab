@@ -53,9 +53,17 @@ export const renameFile = async (value) => {
 };
 
 export const deleteFile = async (value) => {
-
   let response = await axiosInstance.post(
     "/document/delete",
+    value,
+    getAuthHeader()
+  );
+  return response.data;
+};
+
+export const deleteWorkspace = async (value) => {
+  let response = await axiosInstance.post(
+    "/workspace/delete",
     value,
     getAuthHeader()
   );

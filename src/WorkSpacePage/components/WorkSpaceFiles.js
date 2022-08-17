@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { getRecentFiles, getFilesByWorkspaceId } from "../filesActions";
 import { ThemeContext } from "../../Utilities/themeContext";
 import { Oval } from "react-loader-spinner";
@@ -6,13 +6,16 @@ import fileLightIcon from "../../assests/file_light_icon.svg";
 import fileDarkIcon from "../../assests/file_dark_icon.svg";
 import FileComponent from "./FileComponent";
 import { Scrollbars } from "react-custom-scrollbars-2";
+import WorkspaceOptionsModal from "./WorkspaceOptionsModal";
 
 const WorkSpaceFiles = ({ workspace, userId }) => {
+  const ref = useRef(null);
   const { theme } = React.useContext(ThemeContext);
 
   const [files, setFiles] = useState([]);
   const [spinner, setSpinner] = useState(false);
   const [updateFiles, setUpdateFiles] = useState(false);
+  const [workspaceModal, setWorkspaceModal] = useState(false);
   useEffect(() => {
     async function getFiles() {
       try {
@@ -39,6 +42,19 @@ const WorkSpaceFiles = ({ workspace, userId }) => {
     getFiles();
   }, [workspace._id, updateFiles]);
 
+  useEffect(() => {
+    let clickOutsidehandler = (event) => {
+      if (!ref.current.contains(event.target)) {
+        setWorkspaceModal(false);
+      }
+    };
+    document.addEventListener("mousedown", clickOutsidehandler);
+
+    return () => {
+      document.removeEventListener("mousedown", clickOutsidehandler);
+    };
+  }, []);
+
   return (
     <div className="workspaceFilesWrapper mt-10 md:mt-0 ">
       {spinner ? (
@@ -46,23 +62,61 @@ const WorkSpaceFiles = ({ workspace, userId }) => {
           <Oval color="#5063F0" height={40} width={40} />
         </div>
       ) : (
-        <div className="workSpaceFilesContent">
-          <div className="filesLogo flex justify-center md:justify-start ">
-            <div className="mt-2">
+        <div className="workSpaceFilesContent w-full">
+          <div className="filesLogo md:w-9/12  flex md:ml-5 md:justify-between justify-center">
+            <div className=" flex justify-start ">
               <img
                 src={theme === "dark" ? fileDarkIcon : fileLightIcon}
                 alt="collabImg"
                 width="25rem"
               ></img>
+              <h3
+                className="text-left md:wd-3/4  font-semibold tracking-wide 
+              pl-2 pt-2 text-lg md:text-2xl text-light-call-sec dark:text-white"
+              >
+                {workspace === "default" || workspace === "recent"
+                  ? "Recent Files"
+                  : workspace.name}
+              </h3>
             </div>
-            <h3 className="text-left font-semibold tracking-wide pl-2 pt-2 text-lg md:text-2xl text-light-call-sec dark:text-white">
-              {workspace === "default" || workspace === "recent"
-                ? "Recent Files"
-                : workspace.name}
-            </h3>
+
+            <div
+              className="workspaceOptions relative transition-text-color duration-200
+               hover:text-light-text-small  
+         px-2 flex justify-center  md:pt-3 pt-3.5 ml-2 "
+              ref={ref}
+            >
+              {workspace === "recent" || workspace === "default" ? (
+                ""
+              ) : (
+                <div
+                  className="p-2 relative"
+                  onClick={() => {
+                    setWorkspaceModal((prev) => !prev);
+                  }}
+                >
+                  <i className="fa-solid fa-ellipsis-vertical md:text-xl"></i>
+                </div>
+              )}
+
+              {workspaceModal ? (
+                <WorkspaceOptionsModal
+                  workspace={workspace}
+                  closeOptionsModal={() => {
+                    setWorkspaceModal(false);
+                  }}
+                />
+              ) : (
+                ""
+              )}
+            </div>
           </div>
+
           <div className="h-96">
-            <div className="IndividualFilesWrapper md:w-4/5 overflow-y-auto h-full flex-col justify-center p-3 md:mr-2 rounded md:mt-5 ">
+            <div
+              className="IndividualFilesWrapper md:w-4/5 overflow-y-auto h-full
+             flex-col justify-center p-3 md:mr-2 rounded md:mt-5 "
+            >
               <Scrollbars autoHide>
                 {files.map((ele, index) => {
                   return (

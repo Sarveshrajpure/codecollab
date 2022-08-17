@@ -4,8 +4,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import {
   renameFileSchema,
   deleteFileSchema,
+  deleteWorkspaceSchema,
 } from "../../validations/fileOperationsValidations";
-import { renameFile, deleteFile } from "../../WorkSpacePage/filesActions";
+import {
+  renameFile,
+  deleteFile,
+  deleteWorkspace,
+} from "../../WorkSpacePage/filesActions";
 import { Oval } from "react-loader-spinner";
 import toast from "react-hot-toast";
 
@@ -14,6 +19,8 @@ const RenameDeleteFile = ({
   fileOperation,
   fileDetails,
   updateFiles,
+  isDeleteWorkspace,
+  workspace,
 }) => {
   const ref = useRef(null);
   const [formState, setFormState] = useState(fileDetails);
@@ -52,7 +59,6 @@ const RenameDeleteFile = ({
       [name]: typedValue,
     });
   };
-
 
   async function submitForm(e) {
     e.preventDefault();
@@ -101,25 +107,42 @@ const RenameDeleteFile = ({
     try {
       setSpinner(true);
       setError("");
+      let validData = "";
+      console.log(workspace);
+      if (isDeleteWorkspace) {
+        validData = await deleteWorkspaceSchema.validate({
+          workspaceId: workspace._id,
+        });
+      } else {
+        validData = await deleteFileSchema.validate({
+          documentId: fileDetails.documentId,
+        });
+      }
 
-      const validData = await deleteFileSchema.validate({
-        documentId: fileDetails.documentId,
-      });
-     
       if (validData) {
-        let dataToBeSent = { documentId: validData.documentId };
+        if (isDeleteWorkspace) {
+          let dataToBeSent = { workspaceId: validData.workspaceId };
+          let response = await deleteWorkspace(dataToBeSent);
 
-        let response = await deleteFile(dataToBeSent);
-      
-        if (response) {
-          setSpinner(false);
-          toast.success("File deleted!");
-          updateFiles();
-          closeModal();
+          if (response) {
+            setSpinner(false);
+            toast.success("Workspace deleted!");
+            closeModal();
+          }
+        } else {
+          let dataToBeSent = { documentId: validData.documentId };
+          let response = await deleteFile(dataToBeSent);
+
+          if (response) {
+            setSpinner(false);
+            toast.success("File deleted!");
+            updateFiles();
+            closeModal();
+          }
         }
       } else {
         setSpinner(false);
-        setError("FileId required");
+        setError("FileId/WorkspaceId required");
       }
     } catch (error) {
       setSpinner(false);
@@ -130,6 +153,7 @@ const RenameDeleteFile = ({
       }
     }
   }
+  console.log(workspace._id);
   return (
     <div
       className="RenameDeleteFileModalBackground fixed z-40 h-screen w-screen top-0 left-0 
@@ -246,9 +270,20 @@ const RenameDeleteFile = ({
             >
               <div className="flex justify-around">
                 <div>
-                  <div className="text-md p-4 font-medium text-light-call-sec dark:text-light-bg">{`Are you sure you want to delete ${
-                    fileDetails.name + "." + fileDetails.fileExtension
-                  } ?`}</div>
+                  <div className="text-md p-4 font-medium text-light-call-sec dark:text-light-bg">
+                    {isDeleteWorkspace ? (
+                      <h3>
+                        Are you sure?, deleting worksapce would delete all files
+                        within it.
+                      </h3>
+                    ) : (
+                      <h3>{`Are you sure you want to delete ${
+                        fileDetails
+                          ? fileDetails.name
+                          : "" + "." + fileDetails.fileExtension
+                      } ?`}</h3>
+                    )}
+                  </div>
                   <input
                     className=" hidden
               rounded w-full bg-light-accent  border-dark-bg focus:border-light-call-sec 
@@ -256,7 +291,7 @@ const RenameDeleteFile = ({
                text-light-text-small text-sm font-semibold focus:outline-none"
                     id="documentId"
                     type="text"
-                    value={formState.documentId}
+                    value={formState?.documentId}
                     {...register("documentId")}
                   />
                 </div>
