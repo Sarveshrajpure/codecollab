@@ -75,7 +75,7 @@ const Hero1 = () => {
                       <i className="fa-solid fa-gear"></i>
                     </div>
                     <div className="px-1 font-bold text-light-accent dark:text-light-grey-start">
-                      JavaScript
+                      Java
                     </div>
                   </div>
                   <div>
