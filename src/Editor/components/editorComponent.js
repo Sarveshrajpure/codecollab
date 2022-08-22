@@ -45,6 +45,7 @@ const EditorComponent = ({ roomId, setClients }) => {
   const [fileLoader, setFileLoader] = useState(false);
   const [result, setResult] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
+  const [custInput, setCustInput] = useState("");
   const [outputColor, setOutputColor] = useState("light-hover");
   const { isFile } = useParams();
 
@@ -173,7 +174,7 @@ const EditorComponent = ({ roomId, setClients }) => {
       let response = await CompileAndRun({
         LangId: lang.id,
         code: editorCode,
-        input: "",
+        input: custInput ? custInput : "",
       });
 
       if (response) {
@@ -455,6 +456,9 @@ const EditorComponent = ({ roomId, setClients }) => {
               <textarea
                 className=" text-start text-sm font-semibold outline-none text-light-call-sec dark:text-light-hover p-2 bg-light-bg dark:bg-dark-bg h-full w-full "
                 placeholder="Custom input"
+                onChange={(e) => {
+                  setCustInput(e.target.value);
+                }}
               />
             </div>
           </div>
