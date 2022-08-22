@@ -57,14 +57,21 @@ const CodeEditor = ({
     defineTheme(themeVar).then((_) => setTheme(themeVar));
   }, [theme]);
 
+  let options = {
+    minimap: {
+      enabled: false,
+    },
+  };
+
   return (
     <div className="overlay rounded-md overflow-hidden h-full shadow-4xl">
       <Editor
-        height="70vh"
+        height="48vh"
         width={`100%`}
         language={language || "javascript"}
         value={value}
         theme={themeObj}
+        options={options}
         defaultValue="//lets Collaborate 👨🏼‍💻"
         onChange={(val) => {
           handleEditorChange(val);
