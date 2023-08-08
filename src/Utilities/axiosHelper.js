@@ -5,4 +5,3 @@ export const axiosInstance = axios.create({
   baseURL: `${baseUrl}/api`,
   withCredentials: true,
 });
-axios.defaults.headers.post["Content-Type"] = "application/json";
