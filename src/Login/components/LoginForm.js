@@ -41,6 +41,7 @@ const LoginForm = () => {
         }
       }
     } catch (err) {
+      console.log(err);
       setLoader(false);
       if (err.response) {
         setLoginError(err.response.data.message);
