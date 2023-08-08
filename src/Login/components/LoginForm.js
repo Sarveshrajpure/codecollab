@@ -32,6 +32,8 @@ const LoginForm = () => {
       if (data) {
         setLoader(true);
         let response = await LoginUser(data);
+        console.log(response);
+        localStorage.setItem("x-access-token", response.token);
         if (response) {
           dispatch(login_user(response));
           setLoader(false);
@@ -52,17 +54,10 @@ const LoginForm = () => {
       <Nav />
       <div className="loginFormWrapper relative py-2 z-20">
         <div className="loginFormBlock w-full lg:max-w-lg md:max-w-lg max-w-xs">
-          <form
-            className="loginForm  px-10 pb-8 mb-4"
-            onSubmit={handleSubmit(onSubmit)}
-          >
+          <form className="loginForm  px-10 pb-8 mb-4" onSubmit={handleSubmit(onSubmit)}>
             <div className="LoginTitle text-center  font-extrabold pb-6">
-              <span className="text-light-call-sec dark:text-light-accent">
-                Workspace
-              </span>{" "}
-              <span className="text-dark-accent dark:text-light-call-sec">
-                Login
-              </span>
+              <span className="text-light-call-sec dark:text-light-accent">Workspace</span>{" "}
+              <span className="text-dark-accent dark:text-light-call-sec">Login</span>
             </div>
             <div className="mb-6">
               <label
